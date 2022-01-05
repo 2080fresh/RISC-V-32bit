@@ -21,10 +21,10 @@ assign write_addr = write_addr_reg;
 
 always @(posedge clk or negedge reset_n)
 begin
-    if (reset_n == 0) begin
-        op_write_reg <= 0;
-        write_data_reg <= 0;
-        write_addr_reg <= 0;
+    if (reset_n == 1'b0) begin
+        op_write_reg <= 1'b0;
+        write_data_reg <= 1'b0;
+        write_addr_reg <= 1'b0;
     end else begin
         op_write_reg <= ctrl_wb[0];
         write_data_reg <= mux_out_temp;
@@ -32,9 +32,9 @@ begin
     end
 end
 
-always @(*)
+always @(ctrl_wb or mem_data or alu_data)
 begin : MUX
-    if (ctrl_wb[1] == 0)
+    if (ctrl_wb[1] == 1'b0)
         mux_out_temp = mem_data;
     else
         mux_out_temp = alu_data;

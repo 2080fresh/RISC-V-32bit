@@ -1,12 +1,12 @@
-module ID (
+module ID(
     input clk,
     input reset_n,
     input op_write, //register
     //input hazard_ctrl_mem,
     input [63:0] pipe_pc,
     input [31:0] pipe_data, // instruction
-    input [63:0] write_data, // wb? ? data
-    input [4:0] write_addr, // wb? ? register?? ???? rd_in
+    input [63:0] write_data,
+    input [4:0] write_addr,
     //output hazard_detect,
     output control_j,
     output [63:0] pc_j,
@@ -15,7 +15,7 @@ module ID (
     output [63:0] extended,
     //output [4:0] rs1,
     //output [4:0] rs2,
-    output [4:0] rd_ex, // ???? rd out
+    output [4:0] rd_ex,
     output [1:0] ctrl_wb,
     output [1:0] ctrl_m,
     output [3:0] ctrl_ex
@@ -23,13 +23,14 @@ module ID (
 
 reg [63:0] extended_reg;
 reg [63:0] 
-reg [63:0] registers[0:31]; //register
+reg [63:0] registers [0:31]; //register
 reg [5:0] rs1_reg;
 reg [5:0] rs2_reg;
 reg [5:0] rd_reg;
 reg [2:0] funct3_reg;
 reg [6:0] funct7_reg;
 reg [11:0] immediate_reg;
+reg bits;
 
 /*---------------------------------------------------------------
  * MemtoReg(WB), RegWrtie(WB), MemRead(MEM), MemWrite(MEM), ALUOp(3)
@@ -44,7 +45,7 @@ reg [11:0] immediate_reg;
  * 
  *-------------------------------------------------------------*/
 
-localparam [7:0] R_TYPE_OP  = 7'b0110011, // R_type
+localparam [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                  ADDI_OP    = 7'b0010011, // I-type ADDI
                  LD_OP      = 7'b0000011, // I-type LD
                  JALR_OP    = 7'b1100111, // I-type JALR
@@ -53,8 +54,8 @@ localparam [7:0] R_TYPE_OP  = 7'b0110011, // R_type
                  UJ_TYPE_OP = 7'b1101111; // UJ-type JAL
 
 always @(*) // Seperate Instruction
-begin : seperate instruction
-    case (pipe_data(6:0])
+begin : SEPERTATE_INST
+    case (pipe_data[6:0])
         R_TYPE_OP : begin
             funct7_reg = pipe_data[31:25];
             rs2_reg = pipe_data[24:20];
@@ -122,7 +123,7 @@ assign pc_j = pipe_pc + {extended_reg[62:0],1'b0};
 
 reg [7:0] control_bit;
 
-always @(*)
+always @(pipe_data)
 begin : CONTROL_GENERTATOR
     case (pipe_data[6:0])
         ADDI_OP :
@@ -130,13 +131,13 @@ begin : CONTROL_GENERTATOR
         LD_OP :
             control_bit = 8'b11100001;
         JALR_OP :
-            control_bit = 8'b01000000; //ra? ??? ?????
+            control_bit = 8'b01000000;
         S_TYPE_OP :
             control_bit = 8'b00010001;
         SB_TYPE_OP :
             control_bit = 8'b00000000;
         UJ_TYPE_OP :
-            control_bit = 8'b01000000; //?
+            control_bit = 8'b01000000; //MUST need to add default condition.
     endcase
 end
 endmodule
@@ -148,9 +149,7 @@ assign ctrl_ex = control_bit[3:0];
 always @(*)
 begin : Registers
     if (reset_n == 0) begin
-        for (i = 0; i < 32; i = i+1) begin
-            registers[i] = 64b'0;
-        end
-    else if (pipe_data[6:0] == 
+        registers[0:32] = 64d'0;
+    end else if (pipe_data[6:0] == 
 
 
