@@ -9,27 +9,75 @@ z2
 !i10f 100
 cModel Technology
 Z0 dC:/Users/2080f/Documents/URP
-vIF
-!s110 1640756183
+vEX
+Z1 !s110 1641361283
 !i10b 1
-!s100 b0mnlXMZKYQYLmI?2:>]j0
-!s11b Dg1SIo80bB@j0V0VzS_@n1
-IojQ1:I4gH[6`Nh0;=gnR[0
-VDg1SIo80bB@j0V0VzS_@n1
+!s100 Lmzk:c<zOd?GIO0A;Ha3i0
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IX4PI[Z3^0WX:X`nZcWF_00
+Z3 VDg1SIo80bB@j0V0VzS_@n1
 R0
-w1640503946
-8C:/Users/2080f/Documents/URP/IF.v
-FC:/Users/2080f/Documents/URP/IF.v
-!i122 3
-L0 1 44
-OV;L;2020.1;71
+w1641361079
+8C:/Users/2080f/Documents/URP/EX.v
+FC:/Users/2080f/Documents/URP/EX.v
+!i122 7
+L0 1 69
+Z4 OV;L;2020.1;71
 r1
 !s85 0
 31
-!s108 1640756183.000000
+Z5 !s108 1641361283.000000
+!s107 C:/Users/2080f/Documents/URP/EX.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/EX.v|
+!i113 1
+Z6 o-work work
+Z7 tCvgOpt 0
+n@e@x
+vIF
+R1
+!i10b 1
+!s100 b0mnlXMZKYQYLmI?2:>]j0
+R2
+IojQ1:I4gH[6`Nh0;=gnR[0
+R3
+R0
+w1641361049
+8C:/Users/2080f/Documents/URP/IF.v
+FC:/Users/2080f/Documents/URP/IF.v
+!i122 6
+L0 1 44
+R4
+r1
+!s85 0
+31
+R5
 !s107 C:/Users/2080f/Documents/URP/IF.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/IF.v|
 !i113 1
-o-work work
-tCvgOpt 0
+R6
+R7
 n@i@f
+vWB
+R1
+!i10b 1
+!s100 HT4JPokE?WbkFmLTzWWLV2
+R2
+IcK_0RO;]I29XkT7Uk@^bM3
+R3
+R0
+w1641361229
+8C:/Users/2080f/Documents/URP/WB.v
+FC:/Users/2080f/Documents/URP/WB.v
+!i122 8
+L0 1 42
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/2080f/Documents/URP/WB.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/WB.v|
+!i113 1
+R6
+R7
+n@w@b

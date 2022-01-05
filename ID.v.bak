@@ -1,4 +1,4 @@
-module ID (
+module ID(
     input clk,
     input reset_n,
     input op_write,
@@ -82,7 +82,7 @@ assign branched_pc = reg_extended + pipe_pc;
  *-------------------------------------------------------------*/
 always @(*)
 begin : CONTROL_GENERTATOR
-    case (pipe_data[6:0]
+    case (pipe_data[6:0])
         ADDI_OP :
             control_bit = 7'b0100000;
         LD_OP :

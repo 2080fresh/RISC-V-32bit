@@ -1,3 +1,12 @@
 # Reading pref.tcl
 # Loading project Risc_Proj
+# Compile of EX.v was successful.
+# Compile of WB.v was successful.
 # Compile of IF.v was successful.
+# Compile of ID.v failed with 5 errors.
+# Compile of EX.v was successful.
+# Compile of MEM.v was successful.
+# Compile of WB.v was successful.
+# Compile of Top.v was successful.
+# Compile of Risc_tb.v was successful.
+# 7 compiles, 1 failed with 5 errors.
