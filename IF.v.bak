@@ -14,7 +14,7 @@ module IF (
 reg [63:0] pc_out_reg;
 reg [63:0] pc_in_reg;
 reg [63:0] pipe_pc_reg;
-reg [63:0] pipe_data_reg;
+reg [31:0] pipe_data_reg;
 
 assign ins_addr = pc_out_reg;
 assign pipe_pc = pipe_pc_reg;
@@ -34,7 +34,7 @@ begin : PC_REGISTER
         pc_out_reg <= 64'd0;
 //        pc_in_reg <= 64'd0;
         pipe_pc_reg <= 64'd0;
-        pipe_data_reg <= 64'd0;
+        pipe_data_reg <= 32'd0;
     end else if (hazard_detect == 1'b0) begin
         pc_out_reg <= pc_in_reg;
         pipe_pc_reg <= pc_out_reg;
