@@ -40,30 +40,29 @@ begin
     end
 end
 
-always @ (*)
+always @ (ctrl_ex or extended or r_data2)
 begin : MUX
-    if (ctrl_ex[0] == 1) begin
+    if (ctrl_ex[0] == 1'b1)
         mux_out = extended;
-    end else begin
+    else
         mux_out = r_data2;
-    end
 end
 
-always @ (*)
+always @ (ctrl_ex or r_data1 or mux_out)
 begin : ALU
-    if (ctrl_ex[3:1] == 3'b000) begin           // ADD
-        result = r_data1 + mux_out;
-    end else if (ctrl_ex[3:1] == 3'b001) begin  // SUB
-        result = r_data1 - mux_out;
-    end else if (ctrl_ex[3:1] == 3'b010) begin  // AND
-        result = r_data1 & mux_out;
-    end else if (ctrl_ex[3:1] == 3'b011) begin  // OR
-        result = r_data1 | mux_out;
-    end else if (ctrl_ex[3:1] == 3'b100) begin  // Shift left
-        result = r_data1 << mux_out;
-    end else if (ctrl_ex[3:1] == 3'b101) begin  // SLT
-        result = (r_data1 < mux_out)? 64'd1 : 64'd0 ;
-    end
+    case (ctrl_ex[3:1])
+        3'b000 :
+            result = r_data1 + mux_out;                    // ADD
+        3'b001 :
+            result = r_data1 - mux_out;                    // SUB
+        3'b010 :
+            result = r_data1 & mux_out;                    // AND
+        3'b011 :
+            result = r_data1 | mux_out;                    // OR
+        3'b100 :
+            result = r_data1 << mux_out;                   // Shift left
+        default :
+            result = (r_data1 < mux_out)? 64'd1 : 64'd0 ;  // SLT (ctrl_ex[3:1] == 3'b101)
+    endcase
 end
-
 endmodule
