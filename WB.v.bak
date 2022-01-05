@@ -34,11 +34,9 @@ end
 
 always @(*)
 begin : MUX
-    if (ctrl_wb[1] == 0) begin
-        mux_out_temp <= mem_data;
-    end else begin
-        mux_out_temp <= alu_data;
-    end
+    if (ctrl_wb[1] == 0)
+        mux_out_temp = mem_data;
+    else
+        mux_out_temp = alu_data;
 end
-
 endmodule
