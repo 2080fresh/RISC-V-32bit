@@ -137,7 +137,25 @@ begin : CONTROL_GENERTATOR
         SB_TYPE_OP :
             control_bit = 8'b00000000;
         UJ_TYPE_OP :
-            control_bit = 8'b01000000; //MUST need to add default condition.
+            control_bit = 8'b01000000;
+        R_TYPE_OP : begin
+            if (funct3 == 3'b000 && funct7[5] == 1'b0) // add
+                control_bit = 8'b11000000;
+            else if (funct3 == 3'b000 && funct7[5] == 1'b1) //sub
+                control_bit = 8'b11000010;
+            else if (funct3 == 3'b001) // SLL
+                control_bit = 8'b11001000;
+            else if (funct3 == 3'b010) // SLT
+                control_bit = 8'b11001010;
+            else if (funct3 == 3'b111) // AND
+                control_bit = 8'b11000100;
+            else if (funct3 == 3'b110) // OR
+                control_bit = 8'b11000110;
+            else
+                control_bit = 8'b00000000; // default condition
+        end
+        default :
+            contrul_bit = 8'b00000000; // default condition
     endcase
 end
 endmodule
