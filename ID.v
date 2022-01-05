@@ -164,10 +164,19 @@ assign ctrl_wb = control_bit[7:6];
 assign ctrl_m = control_bit[5:4];
 assign ctrl_ex = control_bit[3:0];
 
-always @(*)
+always @(posedge clk)
 begin : Registers
     if (reset_n == 0) begin
         registers[0:32] = 64d'0;
-    end else if (pipe_data[6:0] == 
+    end else if (op_write == 1'b1) begin
+        registers[write_addr] <= write_data;
+    end else begin
+        r_data1_reg <= regsiters[rs1];
+        r_data2_reg <= registers[rs2];
+    end
+end
 
+assign r_data1 = r_data1_reg;
+assign r_data2 = r_data2_reg;
 
+endmodule
