@@ -1,5 +1,6 @@
 # Reading pref.tcl
 # Loading project Risc_Proj
+<<<<<<< HEAD
 # Compile of ID.v failed with 8 errors.
 # Compile of ID.v failed with 8 errors.
 # Error opening C:/Users/2080f/Documents/URP/(vlog-13069) C:/Users/2080f/Documents/URP/ID.v
@@ -30,3 +31,35 @@
 # Compile of ID.v was successful.
 # Compile of JaeWook.v was successful.
 # Compile of WB.v was successful.
+=======
+# Compile of EX.v was successful.
+# Compile of WB.v was successful.
+# Compile of IF.v was successful.
+# Compile of ID.v failed with 5 errors.
+# Compile of EX.v was successful.
+# Compile of MEM.v was successful.
+# Compile of WB.v was successful.
+# Compile of Top.v was successful.
+# Compile of Risc_tb.v was successful.
+# 7 compiles, 1 failed with 5 errors.
+# Compile of EX.v failed with 1 errors.
+# Compile of EX.v failed with 1 errors.
+# Compile of IF.v was successful.
+# Compile of ID.v failed with 6 errors.
+# Compile of EX.v failed with 1 errors.
+# Compile of MEM.v was successful.
+# Compile of WB.v was successful.
+# Compile of Top.v was successful.
+# Compile of Risc_tb.v was successful.
+# 7 compiles, 2 failed with 7 errors.
+# Compile of EX.v was successful.
+# Compile of WB.v was successful.
+# Compile of IF.v was successful.
+# Compile of ID.v failed with 5 errors.
+# Compile of EX.v was successful.
+# Compile of MEM.v was successful.
+# Compile of WB.v was successful.
+# Compile of Top.v was successful.
+# Compile of Risc_tb.v was successful.
+# 7 compiles, 1 failed with 5 errors.
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e

@@ -1,4 +1,34 @@
+<<<<<<< HEAD
 C:/Users/2080f/Documents/URP/WB.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/WB.v
+=======
+C:/Users/2080f/Documents/URP/EX.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module EX
+
+Top level modules:
+	EX
+
+} {} {}} C:/Users/2080f/Documents/URP/ID.v {0 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/ID.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ID
+** Error: (vlog-13069) C:/Users/2080f/Documents/URP/ID.v(26): near "reg": syntax error, unexpected reg, expecting IDENTIFIER or TYPE_IDENTIFIER or NETTYPE_IDENTIFIER or '='.
+** Error: C:/Users/2080f/Documents/URP/ID.v(56): (vlog-2730) Undefined variable: 'instruction'.
+** Error: (vlog-13069) C:/Users/2080f/Documents/URP/ID.v(57): near "case": syntax error, unexpected case.
+** Error: C:/Users/2080f/Documents/URP/ID.v(66): A label for a block can be specified before 'begin' only in SystemVerilog.
+** Error: (vlog-13069) C:/Users/2080f/Documents/URP/ID.v(66): near "=": syntax error, unexpected '='.
+** Error: C:/Users/2080f/Documents/URP/ID.v(66): (vlog-13205) Syntax error found in the scope following 'immediate_reg'. Is there a missing '::'?
+
+} {4.0 10.0} {}} C:/Users/2080f/Documents/URP/Risc_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Risc_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+
+} {} {}} C:/Users/2080f/Documents/URP/Top.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+
+} {} {}} C:/Users/2080f/Documents/URP/MEM.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+
+} {} {}} C:/Users/2080f/Documents/URP/IF.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/IF.v
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module WB
 

@@ -2,6 +2,7 @@ module ID(
     input clk,
     input reset_n,
     input op_write, //register
+<<<<<<< HEAD
     input [31:0] pipe_pc,
     input [31:0] pipe_data, // instruction
     input [31:0] write_data,
@@ -15,12 +16,28 @@ module ID(
     output [31:0] r_data1,
     output [31:0] r_data2,
     output [31:0] extended,
+=======
+    //input hazard_ctrl_mem,
+    input [63:0] pipe_pc,
+    input [31:0] pipe_data, // instruction
+    input [63:0] write_data,
+    input [4:0] write_addr,
+    //output hazard_detect,
+    output control_j,
+    output [63:0] pc_j,
+    output [63:0] r_data1,
+    output [63:0] r_data2,
+    output [63:0] extended,
+    //output [4:0] rs1,
+    //output [4:0] rs2,
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
     output [4:0] rd_ex,
     output [1:0] ctrl_wb,
     output [1:0] ctrl_m,
     output [3:0] ctrl_ex
 );
 
+<<<<<<< HEAD
 reg signed [31:0] extended_reg;
 //reg [31:0] registers [0:31]; //register
 reg [5:0] rs1_reg;
@@ -33,6 +50,17 @@ reg [6:0] funct7_reg;
 reg signed [11:0] immediate_reg;
 reg [31:0] load_pc_reg_addr_reg;   // load register address from tb
 reg [31:0] write_pc_reg_value_reg; // write register value on tb
+=======
+reg [63:0] extended_reg;
+reg [63:0] 
+reg [63:0] registers [0:31]; //register
+reg [5:0] rs1_reg;
+reg [5:0] rs2_reg;
+reg [5:0] rd_reg;
+reg [2:0] funct3_reg;
+reg [6:0] funct7_reg;
+reg [11:0] immediate_reg;
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
 reg bits;
 
 /*---------------------------------------------------------------
@@ -56,7 +84,11 @@ localparam [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                  SB_TYPE_OP = 7'b1100011, // SB-type BEQ,BNE,BLT,BGE
                  UJ_TYPE_OP = 7'b1101111; // UJ-type JAL
 
+<<<<<<< HEAD
 always @(pipe_data) // Seperate Instruction
+=======
+always @(*) // Seperate Instruction
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
 begin : SEPERTATE_INST
     case (pipe_data[6:0])
         R_TYPE_OP : begin
@@ -67,45 +99,70 @@ begin : SEPERTATE_INST
             rd_reg = pipe_data[11:7];
         end
         ADDI_OP : begin
+<<<<<<< HEAD
             immediate_reg = $signed(pipe_data[31:20]);
+=======
+            immediate_reg = pipe_data[31:20];
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
         end
         LD_OP : begin
+<<<<<<< HEAD
             immediate_reg = $signed(pipe_data[31:20]);
+=======
+            immediate_reg = pipe_data[31:20];
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
         end
         JALR_OP : begin
+<<<<<<< HEAD
             immediate_reg = $signed(pipe_data[31:20]);
+=======
+            immediate_reg = pipe_data[31:20];
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
         end
         S_TYPE_OP : begin
+<<<<<<< HEAD
             immediate_reg = $signed({pipe_data[31:25], pipe_data[11:7]});
+=======
+            immediate_reg = {pipe_data[31:25], pipe_data[11:7]};
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
             rs2_reg = pipe_data[24:20];
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
         end
         SB_TYPE_OP : begin
+<<<<<<< HEAD
             immediate_reg = $signed({pipe_data[7], pipe_data[30:25], pipe_data[11:8]});
+=======
+            immediate_reg = {pipe_data[7], pipe_data[30:25}, pipe_data[11:8]};
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
             rs2_reg = pipe_data[24:20];
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
         end
         UJ_TYPE_OP : begin
+<<<<<<< HEAD
             immediate_reg = $signed({pipe_data[31], pipe_data[19:12], pipe_data[20],
                              pipe_data[30:21]});
+=======
+            immediate_reg = {pipe_data[31], pipe_data[19:12], pipe_data[20], pipe_data[30:21]};
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
         end
     endcase
 end
 
+<<<<<<< HEAD
 always @(immediate_reg)
 begin : IMM_GEN
     extended_reg = immediate_reg;
@@ -114,6 +171,13 @@ end
 //Address adder( Shift left1, Add )
 assign pc_j = pipe_pc + {extended_reg[31:0],1'b0};
 assign extended = extended_reg;
+=======
+// IMM-GEN
+assign extended_reg = 64'sb{immediate_reg};
+
+//Address adder( Shift left1, Add )
+assign pc_j = pipe_pc + {extended_reg[62:0],1'b0};
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
 
 /*---------------------------------------------------------------
  * MemtoReg, RegWrtie, MemRead, MemWrite, ALUOp(3)
@@ -144,6 +208,7 @@ begin : CONTROL_GENERTATOR
         SB_TYPE_OP :
             control_bit = 8'b00000000;
         UJ_TYPE_OP :
+<<<<<<< HEAD
             control_bit = 8'b01000000;
         R_TYPE_OP : begin
             if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0) // add
@@ -163,6 +228,9 @@ begin : CONTROL_GENERTATOR
         end
         default :
             control_bit = 8'b00000000; // default condition
+=======
+            control_bit = 8'b01000000; //MUST need to add default condition.
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
     endcase
 end
 
@@ -170,6 +238,7 @@ assign ctrl_wb = control_bit[7:6];
 assign ctrl_m = control_bit[5:4];
 assign ctrl_ex = control_bit[3:0];
 
+<<<<<<< HEAD
 always @(negedge reset_n or posedge clk)
 begin : REGISTERS
     if (reset_n == 1'b0) begin
@@ -192,3 +261,12 @@ assign r_data1 = r_data1_reg;
 assign r_data2 = r_data2_reg;
 
 endmodule
+=======
+always @(*)
+begin : Registers
+    if (reset_n == 0) begin
+        registers[0:32] = 64d'0;
+    end else if (pipe_data[6:0] == 
+
+
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e

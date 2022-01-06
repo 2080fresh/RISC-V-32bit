@@ -46,6 +46,10 @@ begin : MUX
         mux_out = extended;
     else
         mux_out = r_data2;
+<<<<<<< HEAD
+=======
+    end
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
 end
 
 always @ (ctrl_ex or r_data1 or mux_out)
