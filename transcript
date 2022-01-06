@@ -1,2 +1,32 @@
 # Reading pref.tcl
 # Loading project Risc_Proj
+# Compile of ID.v failed with 8 errors.
+# Compile of ID.v failed with 8 errors.
+# Error opening C:/Users/2080f/Documents/URP/(vlog-13069) C:/Users/2080f/Documents/URP/ID.v
+# Path name 'C:/Users/2080f/Documents/URP/(vlog-13069) C:/Users/2080f/Documents/URP/ID.v' doesn't exist.
+# Compile of ID.v failed with 10 errors.
+# Compile of ID.v failed with 7 errors.
+# Compile of ID.v failed with 7 errors.
+# Compile of ID.v failed with 7 errors.
+# Compile of ID.v failed with 3 errors.
+# Compile of JaeWook.v was successful.
+# Compile of EX.v was successful.
+# Compile of ID.v failed with 3 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 2 errors.
+# Error opening C:/Users/2080f/Documents/URP/(vlog-13057) C:/Users/2080f/Documents/URP/ID.v
+# Path name 'C:/Users/2080f/Documents/URP/(vlog-13057) C:/Users/2080f/Documents/URP/ID.v' doesn't exist.
+# Compile of JaeWook.v was successful.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 1 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 2 errors.
+# Compile of ID.v failed with 1 errors.
+# Compile of ID.v was successful.
+# Compile of JaeWook.v was successful.
+# Compile of WB.v was successful.

@@ -9,7 +9,7 @@ module WB(
     output [4:0] write_addr
 );
 
-reg signed [31:0] mux_out_reg;
+reg [31:0] mux_out_reg;
 
 assign op_write = ctrl_wb[0];
 assign write_addr = rd_wb;

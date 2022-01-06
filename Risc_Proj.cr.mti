@@ -1,10 +1,31 @@
-C:/Users/2080f/Documents/URP/ID.v {0 vlog\ -work\ work\ -stats=none\ C:/Users/2080f/Documents/URP/ID.v\nModel\ Technology\ ModelSim\ -\ Intel\ FPGA\ Edition\ vlog\ 2020.1\ Compiler\ 2020.02\ Feb\ 28\ 2020\n--\ Compiling\ module\ ID\n**\ Error:\ (vlog-13069)\ C:/Users/2080f/Documents/URP/ID.v(26):\ near\ \"reg\":\ syntax\ error,\ unexpected\ reg,\ expecting\ IDENTIFIER\ or\ TYPE_IDENTIFIER\ or\ NETTYPE_IDENTIFIER\ or\ '='.\n**\ Error:\ (vlog-13069)\ C:/Users/2080f/Documents/URP/ID.v(92):\ near\ \"\}\":\ syntax\ error,\ unexpected\ '\}'.\n**\ Error:\ (vlog-13057)\ C:/Users/2080f/Documents/URP/ID.v(106):\ Expecting\ numeric\ digits.\n**\ Error:\ (vlog-13069)\ C:/Users/2080f/Documents/URP/ID.v(106):\ near\ \"\{\":\ syntax\ error,\ unexpected\ '\{',\ expecting\ '\;'\ or\ ','.\n**\ Error:\ (vlog-13069)\ C:/Users/2080f/Documents/URP/ID.v(145):\ near\ \"assign\":\ syntax\ error,\ unexpected\ assign,\ expecting\ class.\n\n {4.0 9.0} {}} C:/Users/2080f/Documents/URP/Risc_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Risc_tb.v
+C:/Users/2080f/Documents/URP/WB.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/WB.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module WB
+
+Top level modules:
+	WB
+
+} {} {}} C:/Users/2080f/Documents/URP/ID.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/ID.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ID
+
+Top level modules:
+	ID
+
+} {} {}} C:/Users/2080f/Documents/URP/Risc_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Risc_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+
+} {} {}} C:/Users/2080f/Documents/URP/Top.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 
 } {} {}} C:/Users/2080f/Documents/URP/MEM.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 
-} {} {}} C:/Users/2080f/Documents/URP/Top.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top.v
+} {} {}} C:/Users/2080f/Documents/URP/JaeWook.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/JaeWook.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module EX
+
+Top level modules:
+	EX
 
 } {} {}}
