@@ -9,169 +9,202 @@ z2
 !i10f 100
 cModel Technology
 Z0 dC:/Users/2080f/Documents/URP
-vEX
 <<<<<<< HEAD
 !s110 1641464445
 !i10b 1
-!s100 ]hHjB]dJJ4gG<2;SXi>5I2
-Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
-I<IkojY<iFVIU8hMaSjL;e2
-Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z1 !s100 ]hHjB]dJJ4gG<2;SXi>5I2
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+Z3 I<IkojY<iFVIU8hMaSjL;e2
+Z4 VDg1SIo80bB@j0V0VzS_@n1
 R0
-w1641464441
-8C:/Users/2080f/Documents/URP/JaeWook.v
-FC:/Users/2080f/Documents/URP/JaeWook.v
+Z5 w1641464441
+Z6 8C:/Users/2080f/Documents/URP/JaeWook.v
+Z7 FC:/Users/2080f/Documents/URP/JaeWook.v
 !i122 20
-L0 1 74
-Z3 OV;L;2020.1;71
+Z8 L0 1 74
+Z9 OV;L;2020.1;71
 r1
 !s85 0
 31
 !s108 1641464445.000000
 !s107 C:/Users/2080f/Documents/URP/JaeWook.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/JaeWook.v|
+Z10 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/JaeWook.v|
 !i113 1
-Z4 o-work work
-Z5 tCvgOpt 0
-n@e@x
-vID
-!s110 1641464183
-!i10b 1
-!s100 fd<>QMGdNfINNO[<ag7GV1
-R1
-Izd;9c7k^<^mKT3zSWkmY@1
-R2
-R0
-w1641464182
-8C:/Users/2080f/Documents/URP/ID.v
-FC:/Users/2080f/Documents/URP/ID.v
-!i122 19
-L0 1 194
-R3
-r1
-!s85 0
-31
-!s108 1641464183.000000
-!s107 C:/Users/2080f/Documents/URP/ID.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/ID.v|
-!i113 1
+Z11 o-work work
+Z12 tCvgOpt 0
+Z13 n@e@x
+<<<<<<< HEAD
 R4
-R5
-n@i@d
-vIF
-!s110 1641365184
-!i10b 1
-!s100 b0mnlXMZKYQYLmI?2:>]j0
-R1
-IojQ1:I4gH[6`Nh0;=gnR[0
-R2
-=======
-Z1 !s110 1641365184
-!i10b 1
-!s100 WCiIa[PO>3Oe[EiHBR0?J3
-Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
-I>WWG>N`OjXFN@4Q4o63WE1
-Z3 VDg1SIo80bB@j0V0VzS_@n1
-R0
-w1641362817
-8C:/Users/2080f/Documents/URP/EX.v
-FC:/Users/2080f/Documents/URP/EX.v
-!i122 14
-L0 1 68
-Z4 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z5 !s108 1641365184.000000
-!s107 C:/Users/2080f/Documents/URP/EX.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/EX.v|
+Z14 !s108 1641365184.000000
+Z15 !s107 C:/Users/2080f/Documents/URP/IF.v|
+Z16 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/IF.v|
 !i113 1
-Z6 o-work work
-Z7 tCvgOpt 0
-n@e@x
-vIF
-R1
-!i10b 1
-!s100 b0mnlXMZKYQYLmI?2:>]j0
-R2
-IojQ1:I4gH[6`Nh0;=gnR[0
-R3
+R9
+R14
+Z17 n@i@f
+R0
 >>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
 R0
 w1641361049
-8C:/Users/2080f/Documents/URP/IF.v
-FC:/Users/2080f/Documents/URP/IF.v
+Z18 8C:/Users/2080f/Documents/URP/IF.v
+Z19 FC:/Users/2080f/Documents/URP/IF.v
 !i122 13
 L0 1 44
-<<<<<<< HEAD
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
+n@w@b
+R0
+vEX
+Z20 !s110 1641465425
+!i10b 1
+R1
+R2
 R3
+R4
+R0
+R5
+R6
+R7
+!i122 31
+R8
+R9
 r1
 !s85 0
 31
-!s108 1641365184.000000
-!s107 C:/Users/2080f/Documents/URP/IF.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/IF.v|
+Z21 !s108 1641465425.000000
+Z22 !s107 C:/Users/2080f/Documents/URP/JaeWook.v|
+R10
 !i113 1
+R11
+R12
+vID
+Z23 !s110 1641465424
+!i10b 1
+!s100 W<B=QUAkB:Y5bG9aEc=Ea0
+R2
+I;4_[S_T>DNkC@U:8>acSO1
 R4
-R5
-n@i@f
+R0
+w1641465419
+8C:/Users/2080f/Documents/URP/ID.v
+FC:/Users/2080f/Documents/URP/ID.v
+!i122 28
+L0 1 193
+R9
+r1
+!s85 0
+31
+Z24 !s108 1641465424.000000
+!s107 C:/Users/2080f/Documents/URP/ID.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/ID.v|
+!i113 1
+R11
+R12
+n@i@d
+vIF
+R23
+!i10b 1
+Z25 !s100 @AP]S840PmS]7iPY>]TEK1
+R2
+Z26 I0bhm6m[KNnzQC[Y[mD=>53
+R4
+R0
+Z27 w1641464896
+R18
+R19
+!i122 27
+Z28 L0 1 49
+R9
+r1
+!s85 0
+31
+R24
+R15
+R16
+!i113 1
+R11
+R12
+R13
+vIF
+!s110 1641465314
+!i10b 1
+R25
+R2
+R26
+R4
+R0
+R27
+R18
+R19
+!i122 22
+R28
+R9
+r1
+!s85 0
+31
+!s108 1641465313.000000
+R15
+R16
+!i113 1
+R11
+R12
 vWB
 !s110 1641464534
 !i10b 1
-!s100 gGz9hoCc8m5kR;JzDIZPe0
-R1
-I[E7A45LWQ:YhgRImI7fVQ1
+Z29 !s100 gGz9hoCc8m5kR;JzDIZPe0
+!s110 1641365184
+Z30 I[E7A45LWQ:YhgRImI7fVQ1
 R2
 R0
 w1641464531
-8C:/Users/2080f/Documents/URP/WB.v
-FC:/Users/2080f/Documents/URP/WB.v
+Z31 8C:/Users/2080f/Documents/URP/WB.v
+Z32 FC:/Users/2080f/Documents/URP/WB.v
 !i122 21
-L0 1 29
-R3
+Z33 L0 1 29
+R4
 r1
 !s85 0
 31
 !s108 1641464534.000000
-!s107 C:/Users/2080f/Documents/URP/WB.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/WB.v|
+Z34 !s107 C:/Users/2080f/Documents/URP/WB.v|
+Z35 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/WB.v|
 !i113 1
-R4
-R5
+R9
+R14
 =======
-R4
+R9
 r1
 !s85 0
 31
-R5
-!s107 C:/Users/2080f/Documents/URP/IF.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/IF.v|
+R14
+R15
+R16
 !i113 1
-R6
-R7
-n@i@f
+R11
+R12
+R17
 vWB
-R1
+R20
 !i10b 1
-!s100 @EzhDnAOE6B7GXDJOTi4G3
+R29
 R2
-I1EfD<M5ef09SP181meGT_2
-R3
-R0
-w1641362940
-8C:/Users/2080f/Documents/URP/WB.v
-FC:/Users/2080f/Documents/URP/WB.v
-!i122 15
-L0 1 42
+R30
 R4
+R0
+w1641464864
+R31
+R32
+!i122 30
+R33
+R9
 r1
 !s85 0
 31
-R5
-!s107 C:/Users/2080f/Documents/URP/WB.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/WB.v|
+R21
+R34
+R35
 !i113 1
-R6
-R7
->>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
-n@w@b
+R11
+R12

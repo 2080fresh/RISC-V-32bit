@@ -1,4 +1,4 @@
-module IF (
+module IF(
     input clk,
     input reset_n,
 //    input if_flush,
