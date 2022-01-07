@@ -2,7 +2,6 @@ module IF(
     input clk,
     input reset_n,
     input control_j,
-    input hazard_detect,
     input [31:0] pc_j,
     input [31:0] ins_data,
     output [31:0] pipe_pc4,
