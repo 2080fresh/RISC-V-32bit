@@ -127,7 +127,7 @@ assign extended = extended_reg;
  * 
  *-------------------------------------------------------------*/
 
-reg [7:0] control_bit;
+reg [11:0] control_bit;
 
 always @(pipe_data)
 begin : CONTROL_GENERTATOR
@@ -158,10 +158,10 @@ begin : CONTROL_GENERTATOR
             else if (funct3_reg == 3'b110) // OR
                 control_bit = 8'b11000110;
             else
-                control_bit = 8'b00000000; // default condition
+                control_bit = 8'b11111111; // default condition
         end
         default :
-            control_bit = 8'b00000000; // default condition
+            control_bit = 8'b11111111; // default condition
     endcase
 end
 
