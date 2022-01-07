@@ -169,7 +169,6 @@ assign ctrl_wb = control_bit[7:6];
 assign ctrl_m = control_bit[5:4];
 assign ctrl_ex = control_bit[3:0];
 
-<<<<<<< HEAD
 always @(negedge reset_n or posedge clk)
 begin : REGISTERS
     if (reset_n == 1'b0) begin

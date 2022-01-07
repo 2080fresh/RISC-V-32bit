@@ -5,7 +5,7 @@ module ID(
     input [31:0] pipe_pc,
     input [31:0] pipe_data, // instruction
     input [31:0] write_data,
-    input [4:0] write_addr,
+    input [31:0] write_addr,
     input [31:0] load_pc_reg_value1,
     input [31:0] load_pc_reg_value2,   // load register value from tb
     output [31:0] load_pc_reg_addr,   // load register address from tb
@@ -15,15 +15,15 @@ module ID(
     output [31:0] r_data1,
     output [31:0] r_data2,
     output [31:0] extended,
-    output [4:0] rd_ex,
-    output [1:0] ctrl_wb,
+    output [31:0] rd_ex,
+    output [2:0] ctrl_wb,
     output [1:0] ctrl_m,
     output [3:0] ctrl_ex
 );
 
 reg signed [31:0] extended_reg;
-reg [5:0] rs1_reg;
-reg [5:0] rs2_reg;
+reg [31:0] rs1_reg;
+reg [31:0] rs2_reg;
 reg [31:0] r_data1_reg;
 reg [31:0] r_data2_reg;
 reg [5:0] rd_reg;
