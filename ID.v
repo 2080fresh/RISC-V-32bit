@@ -16,9 +16,7 @@ module ID(
     output [31:0] r_data2,
     output [31:0] extended,
     output [31:0] rd_ex,
-    output [2:0] ctrl_wb,
-    output [1:0] ctrl_m,
-    output [3:0] ctrl_ex
+    output [8:0] ctrl_ex
 );
 
 reg signed [31:0] extended_reg;
@@ -26,7 +24,7 @@ reg [31:0] rs1_reg;
 reg [31:0] rs2_reg;
 reg [31:0] r_data1_reg;
 reg [31:0] r_data2_reg;
-reg [5:0] rd_reg;
+reg [5:0] rd_reg; //Where does it used?
 reg [2:0] funct3_reg;
 reg [6:0] funct7_reg;
 reg signed [11:0] immediate_reg;
@@ -114,6 +112,21 @@ end
 assign pc_j = pipe_pc + {extended_reg[31:0],1'b0};
 assign extended = extended_reg;
 
+
+
+/*-----------------------------------------------------------
+ * control_bit
+ * [11]  : Goes to 'AND'
+ * [10]  : MUX for 'pc_j'
+ * [9]   : MUX whether 'rs+offset' selection
+ * [8:6] : Control bit at WB [op_write, wb mux]
+ * [5:4] : Control bit at MEM
+ * [3:0] : Control bit at EX
+ *
+ * Only control_bit[8:0] will go through OUTPUT 'ctrl_ex'
+ *---------------------------------------------------------*/
+reg [11:0] control_bit;
+
 /*---------------------------------------------------------------
  * MemtoReg, RegWrtie, MemRead, MemWrite, ALUOp(3)
  *
@@ -126,48 +139,43 @@ assign extended = extended_reg;
  * 101 : SLT
  * 
  *-------------------------------------------------------------*/
-
-reg [11:0] control_bit;
-
 always @(pipe_data)
 begin : CONTROL_GENERTATOR
     case (pipe_data[6:0])
         ADDI_OP :
-            control_bit = 8'b01000001;
+            control_bit = 12'b0x0_100_00_0001;
         LD_OP :
-            control_bit = 8'b11100001;
+            control_bit = 12'b0x0_101_10_0001;
         JALR_OP :
-            control_bit = 8'b01000000;
-        S_TYPE_OP :
-            control_bit = 8'b00010001;
-        SB_TYPE_OP :
-            control_bit = 8'b00000000;
-        UJ_TYPE_OP :
-            control_bit = 8'b01000000;
+            control_bit = 12'b1x1_110_00_0000;
+        S_TYPE_OP : // SD
+            control_bit = 12'b0x0_000_01_0001;
+        SB_TYPE_OP : // BEQ
+            control_bit = 12'b1x0_000_00_0000;
+        UJ_TYPE_OP : // JAL
+            control_bit = 12'b1x0_110_00_0000;
         R_TYPE_OP : begin
             if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0) // add
-                control_bit = 8'b11000000;
+                control_bit = 12'b0x0_100_00_0000;
             else if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b1) //sub
-                control_bit = 8'b11000010;
+                control_bit = 12'b0x0_100_00_0010;
             else if (funct3_reg == 3'b001) // SLL
-                control_bit = 8'b11001000;
+                control_bit = 12'b0x0_100_00_1000;
             else if (funct3_reg == 3'b010) // SLT
-                control_bit = 8'b11001010;
+                control_bit = 12'b0x0_100_00_1010;
             else if (funct3_reg == 3'b111) // AND
-                control_bit = 8'b11000100;
+                control_bit = 12'b0x0_100_00_0100;
             else if (funct3_reg == 3'b110) // OR
-                control_bit = 8'b11000110;
+                control_bit = 12'b0x0_100_00_0110;
             else
-                control_bit = 8'b11111111; // default condition
+                control_bit = 12'b111_111_11_1111; // default condition
         end
         default :
-            control_bit = 8'b11111111; // default condition
+            control_bit = 12'b111_111_11_1111; // default condition
     endcase
 end
 
-assign ctrl_wb = control_bit[7:6];
-assign ctrl_m = control_bit[5:4];
-assign ctrl_ex = control_bit[3:0];
+assign ctrl_ex = control_bit[8:0];
 
 always @(negedge reset_n or posedge clk)
 begin : REGISTERS
