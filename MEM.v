@@ -12,7 +12,6 @@ module MEM(
     output [31:0] pc4_wb,
     output [31:0] mem_data,
     output [31:0] alu_data,
-//    output [1:0] mem_ctrl_input, // Data memory control input
     output [31:0] address,      // Data memory input
     output [31:0] w_data,        // Data memory input
 );
@@ -54,7 +53,6 @@ assign rd_wb = rd_wb_reg;
 assign pc4_wb = pc4_wb_reg;
 assign mem_data = mem_data_reg;
 assign alu_data = alu_data_reg;
-//assign mem_ctrl_input = ctrl_mem[4:3];   // Data memory control input
 assign address = alu_result;            // Data memory input
 assign w_data = write_data1;             // Data memory input
 
