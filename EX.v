@@ -15,10 +15,10 @@ module EX(
 );
 
 reg [3:0] ctrl_mem_reg;
-reg [4:0] rd_mem_reg;
+reg [31:0] rd_mem_reg;
+reg [31:0] pc4_mem_reg;
 reg signed [31:0] alu_result_reg;
 reg signed [31:0] write_data1_reg;
-reg [31:0] pc4_mem_reg;
 
 reg signed [31:0] result;
 reg signed [31:0] mux_out;
