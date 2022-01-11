@@ -20,7 +20,7 @@ module ID(
     output [31:0] extended,
     output [31:0] rd_ex,
     output [8:0] ctrl_ex,
-    output [31:0] pc4_ex,
+    output [31:0] pc4_ex
 );
 wire [31:0] r_data1_wire;
 wire [31:0] r_data2_wire;
