@@ -110,8 +110,9 @@ end
  * [5:4] : Control bit at MEM
  * [3:0] : Control bit at EX
  *
- * MemtoReg:[8:7], RegWrtie:[6], MemRead:[5]
- * MemWrite:[4], ALUOp:[3:1], ALUSrc:[0] 
+ * MemtoReg:[8:7], RegWrtie:[6],
+ * MemRead:[5], MemWrite:[4]
+ * ALUOp:[3:1], ALUSrc:[0] 
  *
  * ALUOp
  * 000 : ADD
