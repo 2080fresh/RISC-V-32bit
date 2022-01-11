@@ -3,10 +3,10 @@ module WB(
     input [31:0] pc4_wb,
     input [31:0] mem_data,
     input [31:0] alu_data,
-    input [4:0] rd_wb,
+    input [31:0] rd_wb,
     output op_write,
     output [31:0] write_data,
-    output [4:0] write_addr
+    output [31:0] write_addr
 );
 
 reg signed [31:0] mux_out_reg;
