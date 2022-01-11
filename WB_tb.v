@@ -16,6 +16,8 @@ wire op_write;
 wire [31:0] write_data;
 wire [31:0] write_addr;
 
+integer FID;
+
 WB WB_1(.ctrl_wb(ctrl_wb), .pc4_wb(pc4_wb), .mem_data(mem_data),
         .alu_data(alu_data), .rd_wb(rd_wb),
         .op_write(op_write), .write_data(write_data), .write_addr(write_addr));
@@ -34,15 +36,49 @@ always #5 clk = ~clk;
 
 initial
 begin
-    #10 ctrl_wb = 3'b000; pc4_wb = 32'd1; mem_data = 32'd2;
-        alu_data = 32'd3; rd_wb = 32'd4;
-    #11 ctrl_wb = 3'b001;
-    #11 ctrl_wb = 3'b010;
-    #11 ctrl_wb = 3'b011;
-    #11 ctrl_wb = 3'b100;
-    #11 ctrl_wb = 3'b101;
-    #11 ctrl_wb = 3'b110;
-    #11 ctrl_wb = 3'b111;
+    #10 ctrl_wb = 3'b000; pc4_wb = 32'sd1; mem_data = 32'sd2;
+        alu_data = 32'sd3; rd_wb = 32'sd4;
+        FID = $fopen("result.txt");
+        if((ctrl_wb[0] === op_write) && (write_data === alu_data))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+     #10 ctrl_wb = 3'b001;
+        if((ctrl_wb[0] === op_write) && (write_data === alu_data))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+    #10 ctrl_wb = 3'b010;
+        if((ctrl_wb[0] === op_write) && (write_data === mem_data))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+    #10 ctrl_wb = 3'b011;
+        if((ctrl_wb[0] === op_write) && (write_data === mem_data))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+    #10 ctrl_wb = 3'b100;
+        if((ctrl_wb[0] === op_write) && (write_data === pc4_wb))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+    #10 ctrl_wb = 3'b101;
+        if((ctrl_wb[0] === op_write) && (write_data === pc4_wb))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+    #10 ctrl_wb = 3'b110;
+        if((ctrl_wb[0] === op_write) && (write_data === pc4_wb))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+    #10 ctrl_wb = 3'b111;
+        if((ctrl_wb[0] === op_write) && (write_data === pc4_wb))
+            $fdisplay(FID, "success");
+        else
+	    $fdisplay(FID, "fail");
+    #10 $fclose("FID"); $stop;
 end
 
 endmodule
