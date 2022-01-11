@@ -1,3 +1,4 @@
+
 module IF(
     input clk,
     input reset_n,
@@ -20,24 +21,26 @@ reg [31:0] ins_data_reg;
 assign ins_addr = pc_out_reg;
 assign pipe_pc = pipe_pc_reg;
 assign pipe_data = pipe_data_reg;
+assign pipe_pc4 = pipe_pc4_reg;
 
-always @(control_j or pc_out_reg or pc_j)
+always @(control_j or pc_out_reg or pc_j or ins_data)
 begin : MUX
     if (control_j == 1'b0) begin
         pc_in_reg = pc_out_reg + 32'd4;
-        ins_data_reg = 32'd0;
+        ins_data_reg = ins_data;
     end else begin
         pc_in_reg = pc_j;
-        ins_data_reg = ins_data;
+        ins_data_reg = 32'd0;
     end
 end
 
 always @(posedge clk or negedge reset_n)
 begin : PC_REGISTER
-    if (reset_n == 1'b0 ) begin
+    if (reset_n == 1'b0) begin
         pc_out_reg <= 32'd64;
         pipe_pc_reg <= 32'd64;
-        pipe_data_reg <= 32'd64;
+        pipe_pc4_reg <= 32'd68;
+        pipe_data_reg <= 32'd0;
     end else begin
         pc_out_reg <= pc_in_reg;
         pipe_pc4_reg <= pc_out_reg + 32'd4;
