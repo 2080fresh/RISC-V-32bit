@@ -2,13 +2,13 @@ module MEM(
     input clk,
     input reset_n,
     input [4:0] ctrl_mem,
-    input [4:0] rd_mem,
+    input [31:0] rd_mem,
     input [31:0] pc4_mem,
     input [31:0] alu_result,
-    input [31:0] write_data,
+    input [31:0] write_data1,
     input [31:0] read_data,     // Data memory output
     output [2:0] ctrl_wb,
-    output [4:0] rd_wb,
+    output [31:0] rd_wb,
     output [31:0] pc4_wb,
     output [31:0] mem_data,
     output [31:0] alu_data,
@@ -18,7 +18,7 @@ module MEM(
 );
 
 reg [2:0] ctrl_wb_reg;
-reg [4:0] rd_wb_reg;
+reg [31:0] rd_wb_reg;
 reg [31:0] pc4_wb_reg;
 reg signed [31:0] mem_data_reg;
 reg signed [31:0] alu_data_reg;
@@ -30,13 +30,13 @@ assign mem_data = mem_data_reg;
 assign alu_data = alu_data_reg;
 assign mem_ctrl_input = ctrl_mem[4:3];   // Data memory control input
 assign address = alu_result;            // Data memory input
-assign w_data = write_data;             // Data memory input
+assign w_data = write_data1;             // Data memory input
 
 always @(posedge clk or negedge reset_n)
 begin : REGISTER
     if (reset_n == 1'b0) begin
         ctrl_wb_reg <= 3'd0;
-        rd_wb_reg <= 5'd0;
+        rd_wb_reg <= 32'd0;
         pc4_wb_reg <= 32'd0;
         mem_data_reg <= 32'sd0;
         alu_data_reg <= 32'sd0;
