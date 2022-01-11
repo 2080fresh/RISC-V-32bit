@@ -14,7 +14,8 @@ module MEM(
     output [31:0] alu_data,
 //    output [1:0] mem_ctrl_input, // Data memory control input
     output [31:0] address,      // Data memory input
-    output [31:0] w_data        // Data memory input
+    output [31:0] w_data,        // Data memory input
+    output [31:0] mem_data
 );
 
 reg [2:0] ctrl_wb_reg;
@@ -24,6 +25,7 @@ reg signed [31:0] mem_data_reg;
 reg signed [31:0] alu_data_reg;
 reg [31:0] address_reg;
 reg [31:0] w_data_reg;
+reg [31:0] mem_data_reg;
 
 //ctrl_mem[4] = memread
 //ctrl_mem[3] = memwrite
@@ -36,6 +38,9 @@ begin : REGISTER
         pc4_wb_reg <= 32'd0;
         mem_data_reg <= 32'sd0;
         alu_data_reg <= 32'sd0;
+        address_reg <= 32'd0;
+        w_data_ref <= 32'd0;
+        mem_data_reg <= 32'd0;
     end else begin
         ctrl_wb_reg <= ctrl_mem[2:0];
         rd_wb_reg <= rd_mem;
