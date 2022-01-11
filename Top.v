@@ -64,7 +64,7 @@ EX EX_module(.clk(clk), .reset_n(reset_n), .rd_ex(rd_ex),
 MEM MEM_module(.clk(clk), .reset_n(reset_n), .ctrl_mem(ctrl_mem), 
                .rd_mem(rd_mem), .pc4_mem(pc4_mem), .alu_result(alu_result),
                .write_data1(write_data1), .read_data(read_data),
-               .ctrl_wb(ctrl_wb), .rd_wb(rd_wb), pc4_wb(pc4_wb),
+               .ctrl_wb(ctrl_wb), .rd_wb(rd_wb), .pc4_wb(pc4_wb),
                .mem_data(mem_data), .alu_data(alu_data),
                .mem_ctrl_input(mem_ctrl_input),
                .address(address), .w_data(w_data));

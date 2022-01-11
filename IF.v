@@ -25,16 +25,16 @@ always @(control_j or pc_out_reg or pc_j)
 begin : MUX
     if (control_j == 1'b0) begin
         pc_in_reg = pc_out_reg + 32'd4;
-        ins_data_reg = 32'd0;
+        ins_data_reg = ins_data;
     end else begin
         pc_in_reg = pc_j;
-        ins_data_reg = ins_data;
+        ins_data_reg = 32'd0;
     end
 end
 
 always @(posedge clk or negedge reset_n)
 begin : PC_REGISTER
-    if (reset_n == 1'b0 ) begin
+    if (reset_n == 1'b0) begin
         pc_out_reg <= 32'd0;
         pipe_pc_reg <= 32'd0;
         pipe_data_reg <= 32'd0;

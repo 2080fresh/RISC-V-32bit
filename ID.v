@@ -3,13 +3,16 @@ module ID(
     input reset_n,
     input op_write, //register
     input [31:0] pipe_pc,
+    input [31:0] pipe_pc4,
     input [31:0] pipe_data, // instruction
     input [31:0] write_data,
     input [31:0] write_addr,
     input [31:0] load_pc_reg_value1,
     input [31:0] load_pc_reg_value2,   // load register value from tb
-    output [31:0] load_pc_reg_addr,   // load register address from tb
-    output [31:0] write_pc_reg_value, // write register value on tb
+    output [31:0] load_pc_reg_addr1,   // load register address1 from tb
+    output [31:0] load_pc_reg_addr2,   // load register address2 from tb
+    output [31:0] write_pc_reg_value, // register value to write on tb
+    output [31:0] write_pc_reg_addr,  // register addr to write on tb
     output control_j,
     output [31:0] pc_j,
     output [31:0] r_data1,
@@ -17,21 +20,29 @@ module ID(
     output [31:0] extended,
     output [31:0] rd_ex,
     output [8:0] ctrl_ex,
+    output [31:0] pc4_ex
 );
+wire [31:0] r_data1_wire;
+wire [31:0] r_data2_wire;
 
 reg signed [31:0] extended_reg;
 reg [31:0] rs1_reg;
 reg [31:0] rs2_reg;
 reg [31:0] r_data1_reg;
 reg [31:0] r_data2_reg;
-reg [31:0] rd_reg; //Where does it used?
+reg [31:0] rd_reg;
 reg [2:0] funct3_reg;
 reg [6:0] funct7_reg;
 reg signed [11:0] immediate_reg;
-reg [31:0] load_pc_reg_addr_reg;   // load register address from tb
-reg [31:0] write_pc_reg_value_reg; // write register value on tb
-reg zero;
+reg [31:0] load_pc_reg_addr1_reg;
+reg [31:0] load_pc_reg_addr2_reg;
+reg [31:0] write_pc_reg_value_reg;
+reg [31:0] write_pc_reg_addr_reg;
 reg [31:0] pc_j_reg;
+reg [31:0] pc4_ex_reg;
+reg [8:0] ctrl_ex_reg;
+reg [31:0] rd_ex_reg;
+reg [11:0] control_bit;
 
 localparam [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                  ADDI_OP    = 7'b0010011, // I-type ADDI
@@ -90,17 +101,17 @@ begin : SEPERTATE_INST
         end
     endcase
 end
-
 /*-----------------------------------------------------------
- * control_bit
- * [11]  : Goes to 'AND'
- * [10]  : MUX for 'pc_j' 
- * [9]   : MUX whether 'rs+offset' selection
+ * [control_bit]
+ * [11]  : Goes to 'AND' when 'beq'
+ * [10]  : MUX whether $rd will be $ra at 'jal'
+ * [9]   : MUX whether 'rs+offset' selection and MUX for 'pc_j'
  * [8:6] : Control bit at WB [op_write, wb mux]
  * [5:4] : Control bit at MEM
  * [3:0] : Control bit at EX
-
- * MemtoReg, RegWrtie, MemRead, MemWrite, ALUOp(3), 
+ *
+ * MemtoReg:[8:7], RegWrtie:[6], MemRead:[5]
+ * MemWrite:[4], ALUOp:[3:1], ALUSrc:[0] 
  *
  * ALUOp
  * 000 : ADD
@@ -112,8 +123,6 @@ end
  *
  * Only control_bit[8:0] will go through OUTPUT 'ctrl_ex'
  *---------------------------------------------------------*/
-reg [11:0] control_bit;
-
 always @(pipe_data)
 begin : CONTROL_GENERTATOR
     case (pipe_data[6:0])
@@ -122,13 +131,13 @@ begin : CONTROL_GENERTATOR
         LD_OP :
             control_bit = 12'b000_101_10_0001;
         JALR_OP :
-            control_bit = 12'b111_110_00_0000;
+            control_bit = 12'b001_110_00_0000;
         S_TYPE_OP : // SD
             control_bit = 12'b000_000_01_0001;
         SB_TYPE_OP : // BEQ
             control_bit = 12'b100_000_00_0000;
         UJ_TYPE_OP : // JAL
-            control_bit = 12'b100_110_00_0000;
+            control_bit = 12'b010_110_00_0000;
         R_TYPE_OP : begin
             if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0) // add
                 control_bit = 12'b000_100_00_0000;
@@ -150,63 +159,63 @@ begin : CONTROL_GENERTATOR
     endcase
 end
 
-assign ctrl_ex = control_bit[8:0];
-
-always @ (*)
-begin : comparator
-    if (r_data1_reg == r_data2_reg) begin
-        zero <= 1'b1;
-    end else begin
-        zero <= 1'b0;
-    end
-end
-
-assign control_j = zero & control_bit[11];
-
-always @(immediate_reg)
-begin : IMM_GEN
-    extended_reg = immediate_reg;
-end
-
-//Address adder( Shift left1, Add )
-assign extended = extended_reg;
-
 always @(control_bit)
-begin : pc_j mux
-    if (control_bit[10] == 0) begin
-        pc_j_reg <= pipe_pc + {extended_reg[31:0],1'b0}; //Address adder( Shift left1, Add )
+begin : PC_J_MUX
+    if (control_bit[9] == 0) begin
+        pc_j_reg = pipe_pc + {extended_reg << 1}; //Address adder( Shift left1, Add )
     end else begin
-        pc_j_reg <= r_data1_reg;
+        pc_j_reg = r_data1_reg;
     end
 end
 
-assign pc_j = pc_j_reg;
+always @(rs1_reg or rs2_reg or immediate_reg or write_addr or write_data or 
+         load_pc_reg_value1 or load_pc_reg_value2 or control_bit[9])
+begin : DATA_REGISTER
+    if (control_bit[9] == 1'b1)
+        load_pc_reg_addr1_reg = rs1_reg + immediate_reg;
+    else
+        load_pc_reg_addr1_reg = rs1_reg;
+    load_pc_reg_addr2_reg = rs2_reg;
 
-/*
-always @(*)
-begin : rs+offset
-    if (control_bit[9] == 0) 
-*/
+    if (op_write == 1'b1) begin
+        write_pc_reg_addr_reg = write_addr;
+        write_pc_reg_value_reg = write_data;
+    end else begin
+        write_pc_reg_addr_reg = 32'd0;
+        write_pc_reg_value_reg = 32'd0;
+    end
+end
 
 always @(negedge reset_n or posedge clk)
-begin : REGISTERS
+begin : PIPELINE_REGISTER
     if (reset_n == 1'b0) begin
         //all regs reset
     end else begin
-        if (op_write == 1'b1) begin
-            write_pc_reg_value_reg <= write_data;
-            load_pc_reg_addr_reg <= write_addr;
-            //registers[write_addr] <= write_data;
-        end else begin
-            r_data1_reg <= load_pc_reg_value1;
-            r_data2_reg <= load_pc_reg_value2;
-        end
+        ctrl_ex_reg <= control_bit[8:0];
+        pc4_ex_reg <= pipe_pc4;
+        r_data1_reg <= load_pc_reg_value1;
+        r_data2_reg <= load_pc_reg_value2;
+        extended_reg <= immediate_reg;
+        if (control_bit[10] == 1'b1)
+            rd_ex_reg <= 32'd1;
+        else
+            rd_ex_reg <= rd_reg;
     end
 end
 
-assign write_pc_reg_value = write_pc_reg_value_reg;
-assign load_pc_reg_addr = load_pc_reg_addr_reg;
+assign control_j = (((load_pc_reg_value1 == load_pc_reg_value2) &&
+                    control_bit[11]) || control_bit[10] || control_bit[9]);
+assign pc_j = pc_j_reg;
+assign ctrl_ex = ctrl_ex_reg;
+assign pc4_ex = pc4_ex_reg;
 assign r_data1 = r_data1_reg;
 assign r_data2 = r_data2_reg;
+assign load_pc_reg_addr1 = load_pc_reg_addr1_reg;
+assign load_pc_reg_addr2 = load_pc_reg_addr2_reg;
+assign write_pc_reg_value = write_pc_reg_value_reg;
+assign write_pc_reg_addr = write_pc_reg_addr_reg;
+assign extended = extended_reg;
+assign rd_ex = rd_ex_reg;
+
 
 endmodule
