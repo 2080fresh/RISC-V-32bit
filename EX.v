@@ -23,12 +23,6 @@ reg [31:0] pc4_mem_reg;
 reg signed [31:0] result;
 reg signed [31:0] mux_out;
 
-assign ctrl_mem = ctrl_mem_reg;
-assign rd_mem = rd_mem_reg;
-assign alu_result = alu_result_reg;
-assign write_data1 = write_data1_reg;
-assign pc4_mem = pc4_mem_reg;
-
 always @(posedge clk or negedge reset_n)
 begin
     if (reset_n == 1'd0) begin
@@ -46,7 +40,7 @@ begin
     end
 end
 
-always @ (ctrl_ex or extended or r_data2)
+always @ (ctrl_ex[0] or extended or r_data2)
 begin : MUX
     if (ctrl_ex[0] == 1'b1)
         mux_out = extended;
@@ -54,7 +48,7 @@ begin : MUX
         mux_out = r_data2;
 end
 
-always @ (ctrl_ex or r_data1 or mux_out)
+always @ (ctrl_ex[3:1] or r_data1 or mux_out)
 begin : ALU
     case (ctrl_ex[3:1])
         3'b000 :
@@ -71,4 +65,11 @@ begin : ALU
             result = (r_data1 < mux_out)? 32'sd1 : 32'sd0 ;  // SLT (ctrl_ex[3:1] == 3'b101)
     endcase
 end
+
+assign ctrl_mem = ctrl_mem_reg;
+assign rd_mem = rd_mem_reg;
+assign alu_result = alu_result_reg;
+assign write_data1 = write_data1_reg;
+assign pc4_mem = pc4_mem_reg;
+
 endmodule
