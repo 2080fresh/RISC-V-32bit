@@ -39,7 +39,7 @@ begin : REGISTER
         mem_data_reg <= 32'sd0;
         alu_data_reg <= 32'sd0;
         address_reg <= 32'd0;
-        w_data_ref <= 32'd0;
+        w_data_reg <= 32'd0;
         mem_data_reg <= 32'd0;
     end else begin
         ctrl_wb_reg <= ctrl_mem[2:0];
