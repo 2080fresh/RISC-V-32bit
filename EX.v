@@ -14,7 +14,7 @@ module EX(
     output [31:0] pc4_mem
 );
 
-reg [3:0] ctrl_mem_reg;
+reg [4:0] ctrl_mem_reg;
 reg [31:0] rd_mem_reg;
 reg [31:0] pc4_mem_reg;
 reg signed [31:0] alu_result_reg;
@@ -32,8 +32,8 @@ assign pc4_mem = pc4_mem_reg;
 always @(posedge clk or negedge reset_n)
 begin
     if (reset_n == 1'd0) begin
-        ctrl_mem_reg <= 4'd0;
-        rd_mem_reg <= 5'd0;
+        ctrl_mem_reg <= 5'd0;
+        rd_mem_reg <= 32'd0;
         alu_result_reg <= 32'sd0;
         write_data1_reg <= 32'sd0;
         pc4_mem_reg <= 32'd0;
