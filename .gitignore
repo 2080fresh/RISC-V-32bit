@@ -3,6 +3,7 @@
 
 # ignore compilation output of ModelSim
 *.mti
+*.mpf
 *.dat
 *.dbs
 *.psm
