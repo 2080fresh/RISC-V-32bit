@@ -16,7 +16,7 @@ module ID(
     output [31:0] r_data2,
     output [31:0] extended,
     output [31:0] rd_ex,
-    output [8:0] ctrl_ex
+    output [8:0] ctrl_ex,
 );
 
 reg signed [31:0] extended_reg;
@@ -24,26 +24,14 @@ reg [31:0] rs1_reg;
 reg [31:0] rs2_reg;
 reg [31:0] r_data1_reg;
 reg [31:0] r_data2_reg;
-reg [5:0] rd_reg; //Where does it used?
+reg [31:0] rd_reg; //Where does it used?
 reg [2:0] funct3_reg;
 reg [6:0] funct7_reg;
 reg signed [11:0] immediate_reg;
 reg [31:0] load_pc_reg_addr_reg;   // load register address from tb
 reg [31:0] write_pc_reg_value_reg; // write register value on tb
-reg bits;
-
-/*---------------------------------------------------------------
- * MemtoReg(WB), RegWrtie(WB), MemRead(MEM), MemWrite(MEM), ALUOp(3)
- *
- * ALUOp
- * 000 : ADD
- * 001 : SUB
- * 010 : AND
- * 011 : OR
- * 100 : SHIFT LEFT
- * 101 : SLT
- * 
- *-------------------------------------------------------------*/
+reg zero;
+reg [31:0] pc_j_reg;
 
 localparam [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                  ADDI_OP    = 7'b0010011, // I-type ADDI
@@ -103,32 +91,16 @@ begin : SEPERTATE_INST
     endcase
 end
 
-always @(immediate_reg)
-begin : IMM_GEN
-    extended_reg = immediate_reg;
-end
-
-//Address adder( Shift left1, Add )
-assign pc_j = pipe_pc + {extended_reg[31:0],1'b0};
-assign extended = extended_reg;
-
-
-
 /*-----------------------------------------------------------
  * control_bit
  * [11]  : Goes to 'AND'
- * [10]  : MUX for 'pc_j'
+ * [10]  : MUX for 'pc_j' 
  * [9]   : MUX whether 'rs+offset' selection
  * [8:6] : Control bit at WB [op_write, wb mux]
  * [5:4] : Control bit at MEM
  * [3:0] : Control bit at EX
- *
- * Only control_bit[8:0] will go through OUTPUT 'ctrl_ex'
- *---------------------------------------------------------*/
-reg [11:0] control_bit;
 
-/*---------------------------------------------------------------
- * MemtoReg, RegWrtie, MemRead, MemWrite, ALUOp(3)
+ * MemtoReg, RegWrtie, MemRead, MemWrite, ALUOp(3), 
  *
  * ALUOp
  * 000 : ADD
@@ -137,36 +109,39 @@ reg [11:0] control_bit;
  * 011 : OR
  * 100 : SHIFT LEFT
  * 101 : SLT
- * 
- *-------------------------------------------------------------*/
+ *
+ * Only control_bit[8:0] will go through OUTPUT 'ctrl_ex'
+ *---------------------------------------------------------*/
+reg [11:0] control_bit;
+
 always @(pipe_data)
 begin : CONTROL_GENERTATOR
     case (pipe_data[6:0])
         ADDI_OP :
-            control_bit = 12'b0x0_100_00_0001;
+            control_bit = 12'b000_100_00_0001;
         LD_OP :
-            control_bit = 12'b0x0_101_10_0001;
+            control_bit = 12'b000_101_10_0001;
         JALR_OP :
-            control_bit = 12'b1x1_110_00_0000;
+            control_bit = 12'b111_110_00_0000;
         S_TYPE_OP : // SD
-            control_bit = 12'b0x0_000_01_0001;
+            control_bit = 12'b000_000_01_0001;
         SB_TYPE_OP : // BEQ
-            control_bit = 12'b1x0_000_00_0000;
+            control_bit = 12'b100_000_00_0000;
         UJ_TYPE_OP : // JAL
-            control_bit = 12'b1x0_110_00_0000;
+            control_bit = 12'b100_110_00_0000;
         R_TYPE_OP : begin
             if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0) // add
-                control_bit = 12'b0x0_100_00_0000;
+                control_bit = 12'b000_100_00_0000;
             else if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b1) //sub
-                control_bit = 12'b0x0_100_00_0010;
+                control_bit = 12'b000_100_00_0010;
             else if (funct3_reg == 3'b001) // SLL
-                control_bit = 12'b0x0_100_00_1000;
+                control_bit = 12'b000_100_00_1000;
             else if (funct3_reg == 3'b010) // SLT
-                control_bit = 12'b0x0_100_00_1010;
+                control_bit = 12'b000_100_00_1010;
             else if (funct3_reg == 3'b111) // AND
-                control_bit = 12'b0x0_100_00_0100;
+                control_bit = 12'b000_100_00_0100;
             else if (funct3_reg == 3'b110) // OR
-                control_bit = 12'b0x0_100_00_0110;
+                control_bit = 12'b000_100_00_0110;
             else
                 control_bit = 12'b111_111_11_1111; // default condition
         end
@@ -176,6 +151,42 @@ begin : CONTROL_GENERTATOR
 end
 
 assign ctrl_ex = control_bit[8:0];
+
+always @ (*)
+begin : comparator
+    if (r_data1_reg == r_data2_reg) begin
+        zero <= 1'b1;
+    end else begin
+        zero <= 1'b0;
+    end
+end
+
+assign control_j = zero & control_bit[11];
+
+always @(immediate_reg)
+begin : IMM_GEN
+    extended_reg = immediate_reg;
+end
+
+//Address adder( Shift left1, Add )
+assign extended = extended_reg;
+
+always @(control_bit)
+begin : pc_j mux
+    if (control_bit[10] == 0) begin
+        pc_j_reg <= pipe_pc + {extended_reg[31:0],1'b0}; //Address adder( Shift left1, Add )
+    end else begin
+        pc_j_reg <= r_data1_reg;
+    end
+end
+
+assign pc_j = pc_j_reg;
+
+/*
+always @(*)
+begin : rs+offset
+    if (control_bit[9] == 0) 
+*/
 
 always @(negedge reset_n or posedge clk)
 begin : REGISTERS
