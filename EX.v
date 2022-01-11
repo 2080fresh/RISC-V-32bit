@@ -1,14 +1,14 @@
 module EX(
     input clk,
     input reset_n,
-    input [4:0] rd_ex,
     input [8:0] ctrl_ex,
+    input [31:0] rd_ex,
     input [31:0] r_data1,
     input [31:0] r_data2,
     input [31:0] extended,
     input [31:0] pc4_ex,
     output [4:0] ctrl_mem,
-    output [4:0] rd_mem,
+    output [31:0] rd_mem,
     output [31:0] alu_result,
     output [31:0] write_data1,
     output [31:0] pc4_mem
