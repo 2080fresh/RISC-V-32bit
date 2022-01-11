@@ -12,7 +12,7 @@ module MEM(
     output [31:0] pc4_wb,
     output [31:0] mem_data,
     output [31:0] alu_data,
-    output [1:0] mem_ctrl_input, // Data memory control input
+//    output [1:0] mem_ctrl_input, // Data memory control input
     output [31:0] address,      // Data memory input
     output [31:0] w_data        // Data memory input
 );
@@ -22,15 +22,11 @@ reg [31:0] rd_wb_reg;
 reg [31:0] pc4_wb_reg;
 reg signed [31:0] mem_data_reg;
 reg signed [31:0] alu_data_reg;
+reg [31:0] address_reg;
+reg [31:0] w_data_reg;
 
-assign ctrl_wb = ctrl_wb_reg;
-assign rd_wb = rd_wb_reg;
-assign pc4_wb = pc4_wb_reg;
-assign mem_data = mem_data_reg;
-assign alu_data = alu_data_reg;
-assign mem_ctrl_input = ctrl_mem[4:3];   // Data memory control input
-assign address = alu_result;            // Data memory input
-assign w_data = write_data1;             // Data memory input
+//ctrl_mem[4] = memread
+//ctrl_mem[3] = memwrite
 
 always @(posedge clk or negedge reset_n)
 begin : REGISTER
@@ -48,5 +44,14 @@ begin : REGISTER
         alu_data_reg <= alu_result;
     end
 end
+
+assign ctrl_wb = ctrl_wb_reg;
+assign rd_wb = rd_wb_reg;
+assign pc4_wb = pc4_wb_reg;
+assign mem_data = mem_data_reg;
+assign alu_data = alu_data_reg;
+//assign mem_ctrl_input = ctrl_mem[4:3];   // Data memory control input
+assign address = alu_result;            // Data memory input
+assign w_data = write_data1;             // Data memory input
 
 endmodule
