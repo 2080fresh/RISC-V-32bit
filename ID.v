@@ -20,7 +20,7 @@ module ID(
     output [31:0] extended,
     output [31:0] rd_ex,
     output [8:0] ctrl_ex,
-    output [31:0] pc4_ex
+    output [31:0] pc4_ex,
 );
 wire [31:0] r_data1_wire;
 wire [31:0] r_data2_wire;
@@ -189,13 +189,33 @@ end
 always @(negedge reset_n or posedge clk)
 begin : PIPELINE_REGISTER
     if (reset_n == 1'b0) begin
-        //all regs reset
+        extended_reg <= 32'd0;
+        rs1_reg <= 32'd0;
+        rs2_reg <= 32'd0;
+        r_data1_reg <= 32'd0;
+        r_data2_reg <= 32'd0;
+        rd_reg <= 32'd0;
+        funct3_reg <= 3'd0;
+        funct7_reg <= 7'd0;
+        immediate_reg <= 12'd0;
+        load_pc_reg_addr1_reg <= 32'd0;
+        load_pc_reg_addr2_reg <= 32'd0;
+        write_pc_reg_value_reg <= 32'd0;
+        write_pc_reg_addr_reg <= 32'd0;
+        pc_j_reg <= 32'd0;
+        pc4_ex_reg <= 32'd0;
+        ctrl_ex_reg <= 9'd0;
+        rd_ex_reg <= 32'd0;
+        control_bit <= 12'd0;
     end else begin
         ctrl_ex_reg <= control_bit[8:0];
         pc4_ex_reg <= pipe_pc4;
-        r_data1_reg <= load_pc_reg_value1;
         r_data2_reg <= load_pc_reg_value2;
         extended_reg <= immediate_reg;
+        if (control_bit[5] || control_bit[4])
+            r_data1_reg <= rs1_reg;
+        else
+            r_data1_reg <= load_pc_reg_value1;
         if (control_bit[10] == 1'b1)
             rd_ex_reg <= 32'd1;
         else
