@@ -13,6 +13,7 @@
 *.html
 *.bsf
 *.ini
+*.cr.mti
 
 # ignore simulation output of ModelSim
 wlf*

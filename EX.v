@@ -1,24 +1,24 @@
 module EX(
     input clk,
     input reset_n,
-    input [4:0] rd_ex,
     input [8:0] ctrl_ex,
+    input [31:0] rd_ex,
     input [31:0] r_data1,
     input [31:0] r_data2,
     input [31:0] extended,
     input [31:0] pc4_ex,
     output [4:0] ctrl_mem,
-    output [4:0] rd_mem,
+    output [31:0] rd_mem,
     output [31:0] alu_result,
     output [31:0] write_data1,
     output [31:0] pc4_mem
 );
 
-reg [3:0] ctrl_mem_reg;
-reg [4:0] rd_mem_reg;
+reg [4:0] ctrl_mem_reg;
+reg [31:0] rd_mem_reg;
+reg [31:0] pc4_mem_reg;
 reg signed [31:0] alu_result_reg;
 reg signed [31:0] write_data1_reg;
-reg [31:0] pc4_mem_reg;
 
 reg signed [31:0] result;
 reg signed [31:0] mux_out;
@@ -32,8 +32,8 @@ assign pc4_mem = pc4_mem_reg;
 always @(posedge clk or negedge reset_n)
 begin
     if (reset_n == 1'd0) begin
-        ctrl_mem_reg <= 4'd0;
-        rd_mem_reg <= 5'd0;
+        ctrl_mem_reg <= 5'd0;
+        rd_mem_reg <= 32'd0;
         alu_result_reg <= 32'sd0;
         write_data1_reg <= 32'sd0;
         pc4_mem_reg <= 32'd0;
