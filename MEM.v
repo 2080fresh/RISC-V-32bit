@@ -24,8 +24,8 @@ reg signed [31:0] alu_data_reg;
 reg [31:0] address_reg;
 reg [31:0] w_data_reg;
 
-//ctrl_mem[4] = memread
-//ctrl_mem[3] = memwrite
+//ctrl_mem[4] = memread (ld)
+//ctrl_mem[3] = memwrite (sd)
 
 always @(posedge clk or negedge reset_n)
 begin : REGISTER
@@ -43,13 +43,16 @@ begin : REGISTER
         pc4_wb_reg <= pc4_mem;
         mem_data_reg <= read_data;
         alu_data_reg <= alu_result;
-        if (ctrl_mem[4] == 1) begin // (read) need modify here to
+        if ((ctrl_mem[4] == 1) && (ctrl_mem[3] == 0)) begin // (load)
             address_reg <= alu_result;
-            w_data_reg <= write_data;
-        end 
-        if (ctrl_mem[3] == 1) begin // (write)
-            address_reg <= 
-            w_data_reg <=  // here
+            w_data_reg <= 32'd0; // don't care
+        end else if ((ctrl_mem[4] == 0) && (ctrl_mem[3] == 1)) begin // (store)
+            address_reg <= alu_result;
+            w_data_reg <=  write_data;
+        end else begin
+            address_reg <= 32'd0;
+            w_data_reg <= 32'd0;
+        end
     end
 end
 
