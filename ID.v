@@ -22,8 +22,6 @@ module ID(
     output [8:0] ctrl_ex,
     output [31:0] pc4_ex
 );
-wire [31:0] r_data1_wire;
-wire [31:0] r_data2_wire;
 
 reg signed [31:0] extended_reg;
 reg [31:0] rs1_reg;
