@@ -5,7 +5,7 @@ module MEM(
     input [31:0] rd_mem,
     input [31:0] pc4_mem,
     input [31:0] alu_result,
-    input [31:0] write_data,
+    input [31:0] write_data1,
     input [31:0] read_data,     // Data memory output
     output [2:0] ctrl_wb,
     output [31:0] rd_wb,
@@ -48,7 +48,7 @@ begin : REGISTER
             w_data_reg <= 32'd0; // don't care
         end else if ((ctrl_mem[4] == 0) && (ctrl_mem[3] == 1)) begin // (store)
             address_reg <= alu_result;
-            w_data_reg <=  write_data;
+            w_data_reg <=  write_data1;
         end else begin
             address_reg <= 32'd0;
             w_data_reg <= 32'd0;
