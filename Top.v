@@ -7,8 +7,10 @@ module Top(
     input [31:0] read_data,             // Data mem output (data)
     output [1:0] mem_ctrl_input,        // Data mem input (ctrl bit)
     output [31:0] ins_addr,             // instruction mem input
-    output [31:0] load_pc_reg_addr,     // ID_register input (write_reg address)
+    output [31:0] load_pc_reg_addr1,    // ID_register input (read_reg address)
+    output [31:0] load_pc_reg_addr2,    // ID_register input (read_reg address)
     output [31:0] write_pc_reg_value,   // ID_register input (write_reg data)
+    output [31:0] write_pc_reg_addr,    // ID_register input (write_reg address)
     output [31:0] address,              // Data mem input (address)
     output [31:0] w_data                // Data mem input (data)
 );
@@ -45,12 +47,14 @@ IF IF_module(.clk(clk), .reset_n(reset_n), .control_j(control_j),
              .ins_addr(ins_addr), .pipe_data(pipe_data));
              
 ID ID_module(.clk(clk), .reset_n(reset_n), .op_write(op_write),
-             .pipe_pc(pipe_pc), .pipe_data(pipe_data), .pipe_pc4(pipe_pc4),
+             .pipe_pc(pipe_pc), .pipe_pc4(pipe_pc4), .pipe_data(pipe_data),
              .write_data(write_data), .write_addr(write_addr),
              .load_pc_reg_value1(load_pc_reg_value1),
              .load_pc_reg_value2(load_pc_reg_value2),
-             .load_pc_reg_addr(load_pc_reg_addr),
+             .load_pc_reg_addr1(load_pc_reg_addr1),
+             .load_pc_reg_addr2(load_pc_reg_addr2),
              .write_pc_reg_value(write_pc_reg_value),
+             .write_pc_reg_addr(write_pc_reg_addr),
              .control_j(control_j), .pc_j(pc_j), .r_data1(r_data1),
              .r_data2(r_data2), .extended(extended),
              .rd_ex(rd_ex), .ctrl_ex(ctrl_ex), .pc4_ex(pc4_ex));
