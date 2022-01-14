@@ -1,10 +1,15 @@
 `timescale 1ns / 1ns
 
-module IF_tb;
-    parameter INS_MEM_SIZE = 40;
-    parameter INS_START    = 64;
-    parameter CLK_CYCLE    = 4;
-    parameter ZERO         = 0;
+module IF_tb
+    #(
+    parameter INS_MEM_SIZE = 40
+    ,parameter INS_START    = 64
+    ,parameter CLK_CYCLE    = 4
+    ,parameter ZERO         = 0
+    )
+
+    (
+    );
 
 //clock
     reg clk;
@@ -163,5 +168,6 @@ module IF_tb;
                 $fdisplay(FID, "testcase #%2d - processing by clk: fail", i);
         #20 $fclose("FID"); $stop;
     end
+
 
 endmodule
