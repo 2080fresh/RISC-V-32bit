@@ -22,5 +22,7 @@ wlf*
 *.ucdb
 cov*/
 transcript*
+Risc_Proj.cr.mti
+Risc_Proj.mpf
 sc_dpiheader.h
 vsim.dbg

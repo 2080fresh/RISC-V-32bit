@@ -12,12 +12,15 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	Top
 
-} {} {}} C:/Users/2080f/Documents/URP/MEM_TB.v {0 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM_TB.v
+} {} {}} C:/Users/2080f/Documents/URP/MEM_tb.v {2 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module mem_tb
-** Error: (vlog-13069) C:/Users/2080f/Documents/URP/MEM_TB.v(35): near "endmodule": syntax error, unexpected endmodule.
+-- Compiling module MEM_tb
+** Warning: C:/Users/2080f/Documents/URP/MEM_tb.v(128): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
 
-} {4.0 5.0} {}} C:/Users/2080f/Documents/URP/EX.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX.v
+Top level modules:
+	MEM_tb
+
+} {} {}} C:/Users/2080f/Documents/URP/EX.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module EX
 
@@ -45,6 +48,25 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	IF
 
+} {} {}} C:/Users/2080f/Documents/URP/Top_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module tb_top
+
+Top level modules:
+	tb_top
+
+} {} {}} C:/Users/2080f/Documents/URP/EX_tb.v {2 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module tb_ex
+** Warning: C:/Users/2080f/Documents/URP/EX_tb.v(55): (vlog-2597) '4000000000' is being treated as 32-bit signed integer and will overflow.
+** Warning: C:/Users/2080f/Documents/URP/EX_tb.v(56): (vlog-2597) '4000000000' is being treated as 32-bit signed integer and will overflow.
+** Warning: C:/Users/2080f/Documents/URP/EX_tb.v(57): (vlog-2597) '4000000000' is being treated as 32-bit signed integer and will overflow.
+** Warning: C:/Users/2080f/Documents/URP/EX_tb.v(58): (vlog-2597) '4000000000' is being treated as 32-bit signed integer and will overflow.
+** Warning: C:/Users/2080f/Documents/URP/EX_tb.v(59): (vlog-2597) '4000000000' is being treated as 32-bit signed integer and will overflow.
+
+Top level modules:
+	tb_ex
+
 } {} {}} C:/Users/2080f/Documents/URP/ID_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/ID_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module ID_tb
@@ -52,62 +74,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	ID_tb
 
-} {} {}} C:/Users/2080f/Documents/URP/IF_tb.V {2 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/IF_tb.V
+} {} {}} C:/Users/2080f/Documents/URP/IF_tb.V {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/IF_tb.V
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module IF_tb
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(52): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(52): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(53): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(53): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(54): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(54): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(55): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(55): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(56): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(56): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(57): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(57): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(58): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(58): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(59): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(59): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(60): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(61): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(61): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(62): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(62): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(62): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(62): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(62): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(62): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(62): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(63): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(63): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(63): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(63): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(63): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(63): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(63): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(64): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(64): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(65): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(65): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(65): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(65): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-** Warning: C:/Users/2080f/Documents/URP/IF_tb.V(65): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
 
 Top level modules:
 	IF_tb
-
-} {} {}} C:/Users/2080f/Documents/URP/Risc_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Risc_tb.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 
 } {} {}} C:/Users/2080f/Documents/URP/MEM.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -115,12 +87,5 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 
 Top level modules:
 	MEM
-
-} {} {}} C:/Users/2080f/Documents/URP/JaeWook.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/JaeWook.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module EX
-
-Top level modules:
-	EX
 
 } {} {}}

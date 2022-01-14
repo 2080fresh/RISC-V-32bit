@@ -10,309 +10,379 @@ z2
 cModel Technology
 Z0 dC:/Users/2080f/Documents/URP
 <<<<<<< HEAD
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+r1
+!s85 0
+31
+Z2 !s108 1641365184.000000
+Z3 !s107 C:/Users/2080f/Documents/URP/IF.v|
+Z4 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/IF.v|
+!i113 1
+Z5 OV;L;2020.1;71
+R2
+Z6 n@i@f
+R0
+<<<<<<< HEAD
 !s110 1641464445
 !i10b 1
-Z1 !s100 ]hHjB]dJJ4gG<2;SXi>5I2
-Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
-Z3 I<IkojY<iFVIU8hMaSjL;e2
-Z4 VDg1SIo80bB@j0V0VzS_@n1
+!s100 ]hHjB]dJJ4gG<2;SXi>5I2
+Z7 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I<IkojY<iFVIU8hMaSjL;e2
+R1
 R0
 w1641464441
-Z5 8C:/Users/2080f/Documents/URP/JaeWook.v
-Z6 FC:/Users/2080f/Documents/URP/JaeWook.v
+8C:/Users/2080f/Documents/URP/JaeWook.v
+FC:/Users/2080f/Documents/URP/JaeWook.v
 !i122 20
-Z7 L0 1 74
-Z8 OV;L;2020.1;71
+L0 1 74
+R5
 r1
 !s85 0
 31
 !s108 1641464445.000000
-Z9 !s107 C:/Users/2080f/Documents/URP/JaeWook.v|
-Z10 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/JaeWook.v|
+!s107 C:/Users/2080f/Documents/URP/JaeWook.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/JaeWook.v|
 !i113 1
-Z11 o-work work
-Z12 tCvgOpt 0
-Z13 n@e@x
-<<<<<<< HEAD
-R4
-r1
-!s85 0
-31
-Z14 !s108 1641365184.000000
-Z15 !s107 C:/Users/2080f/Documents/URP/IF.v|
-Z16 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/IF.v|
-!i113 1
-R8
-R14
-Z17 n@i@f
+Z8 o-work work
+Z9 tCvgOpt 0
+Z10 n@e@x
+>>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
+n@w@b
 R0
 >>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
 R0
 w1641361049
-Z18 8C:/Users/2080f/Documents/URP/IF.v
-Z19 FC:/Users/2080f/Documents/URP/IF.v
+Z11 8C:/Users/2080f/Documents/URP/IF.v
+Z12 FC:/Users/2080f/Documents/URP/IF.v
 !i122 13
 L0 1 44
->>>>>>> 707534bc7954012b2d497c0c1a67843afd9d564e
-n@w@b
-R0
 vEX
-Z20 !s110 1642143724
+Z13 !s110 1642144509
 !i10b 1
-R1
-R2
-R3
-R4
-R0
-Z21 w1641565449
-R5
-R6
-!i122 107
+!s100 ed6ZR>]GAI;9dcoR7:ULR3
 R7
-R8
+ImJ9D5YmVKDW?3B8QSR^Rh1
+R1
+R0
+Z14 w1642143747
+8C:/Users/2080f/Documents/URP/EX.v
+FC:/Users/2080f/Documents/URP/EX.v
+!i122 114
+L0 1 75
+R5
 r1
 !s85 0
 31
-Z22 !s108 1642143724.000000
-R9
-R10
+Z15 !s108 1642144509.000000
+!s107 C:/Users/2080f/Documents/URP/EX.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/EX.v|
 !i113 1
-R11
-R12
+R8
+R9
 vID
-R20
+R13
 !i10b 1
-!s100 lEMzhjgcQ_^Qg?i]iCz]J2
-R2
-ID>a>5ZW>H1@z1Po:imQF51
-R4
+!s100 acPz1GeG30Z^Yb2b0Y]V11
+R7
+IN5V8^PNS9z:M8;;BgOi1g0
+R1
 R0
-w1642097994
+R14
 8C:/Users/2080f/Documents/URP/ID.v
 FC:/Users/2080f/Documents/URP/ID.v
-!i122 102
-L0 1 242
-R8
+!i122 113
+L0 1 240
+R5
 r1
 !s85 0
 31
-R22
+R15
 !s107 C:/Users/2080f/Documents/URP/ID.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/ID.v|
 !i113 1
-R11
-R12
+R8
+R9
 n@i@d
 vID_tb
-Z23 !s110 1642143725
+!s110 1642144574
 !i10b 1
-!s100 QkShU0j=a[:V2d5eejkm93
-R2
-IY3UmV7:2D]g66HQ6g62gS0
-R4
+!s100 0WR2m0b;>cf?m`g`XVLo50
+R7
+IeN;2RPQgW>HmP`Hg5U2e10
+R1
 R0
-w1642143648
+w1642144571
 8C:/Users/2080f/Documents/URP/ID_tb.v
 FC:/Users/2080f/Documents/URP/ID_tb.v
-!i122 109
-L0 3 189
-R8
+!i122 124
+L0 3 191
+R5
 r1
 !s85 0
 31
-R22
+!s108 1642144574.000000
 !s107 C:/Users/2080f/Documents/URP/ID_tb.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/ID_tb.v|
 !i113 1
+R8
+R9
+n@i@d_tb
+vIF
+R13
+!i10b 1
+!s100 ob`LKQ1SY4OFU<8?e>n8Z2
+R7
+I5=][BjIBZhk1]c7mn>f9=0
+R1
+R0
+w1641889944
 R11
 R12
-n@i@d_tb
+!i122 112
+L0 2 50
+R5
+r1
+!s85 0
+31
+R15
+R3
+R4
+!i113 1
+R8
+R9
 vIF
 !s110 1641884828
 !i10b 1
 !s100 C^BY;96feHRa7AiW=o3Bz0
-R2
+R7
 IYRNEiBOAf]Q7]l^T^bM120
-R4
+R1
 R0
 w1641884814
-R18
-R19
+R11
+R12
 !i122 66
 L0 1 48
-R8
+R5
 r1
 !s85 0
 31
 !s108 1641884828.000000
-R15
-R16
-!i113 1
-R11
-R12
-R13
-vIF
-R20
-!i10b 1
-!s100 ob`LKQ1SY4OFU<8?e>n8Z2
-R2
-I5=][BjIBZhk1]c7mn>f9=0
+R3
 R4
-R0
-Z24 w1641889944
-R18
-R19
-!i122 101
-L0 2 50
+!i113 1
 R8
-r1
-!s85 0
-31
-R22
-R15
-R16
-!i113 1
-R11
-R12
+R9
+R10
 vIF_tb
-R23
+Z16 !s110 1642144510
 !i10b 1
-!s100 Hf]_i6Li[1fMShYbj@BJ03
-R2
-IoMUPm]AQ8[c[P^g1TV9kC1
-R4
+!s100 @MZQk_z]QFW6j9a1QSWXY0
+R7
+I?WLJj7@I2gTz?::>H_k<h3
+R1
 R0
-R24
+R14
 8C:/Users/2080f/Documents/URP/IF_tb.V
 FC:/Users/2080f/Documents/URP/IF_tb.V
-!i122 110
-L0 3 81
-R8
+!i122 120
+L0 3 109
+R5
 r1
 !s85 0
 31
-!s108 1642143725.000000
+Z17 !s108 1642144510.000000
 !s107 C:/Users/2080f/Documents/URP/IF_tb.V|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/IF_tb.V|
 !i113 1
-R11
-R12
+R8
+R9
 n@i@f_tb
 vMEM
-R20
+R13
 !i10b 1
-!s100 ^i[fM[HLo1=WkCGNf@9:30
-R2
-I8gk]D4Az0zC522K0R44l[2
-R4
+!s100 5VU`h7^bUJ_ej`T<ee0Y23
+R7
+I_2X9QhHe5?QBaBb:;ZC<i2
+R1
 R0
-Z25 w1641958786
+R14
 8C:/Users/2080f/Documents/URP/MEM.v
 FC:/Users/2080f/Documents/URP/MEM.v
-!i122 104
-L0 1 67
-R8
+!i122 115
+L0 1 63
+R5
 r1
 !s85 0
 31
-R22
+R15
 !s107 C:/Users/2080f/Documents/URP/MEM.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/MEM.v|
 !i113 1
-R11
-R12
-n@m@e@m
-vtb_wb
-R20
-!i10b 1
-!s100 dDdC@Udbc7BX4nLA6SPBW2
-R2
-Ik^l4=3B4lCC0b5h5ikaiK1
-R4
-R0
-R25
-8C:/Users/2080f/Documents/URP/WB_tb.v
-FC:/Users/2080f/Documents/URP/WB_tb.v
-!i122 108
-L0 3 91
 R8
+R9
+n@m@e@m
+vMEM_tb
+R16
+!i10b 1
+!s100 DN`]i:bLNzBe`XbS:^zXW2
+R7
+I1YeI4<Rc>A20z3h4]^<oJ0
+R1
+R0
+R14
+8C:/Users/2080f/Documents/URP/MEM_tb.v
+FC:/Users/2080f/Documents/URP/MEM_tb.v
+!i122 122
+L0 3 137
+R5
 r1
 !s85 0
 31
-R22
+R17
+!s107 C:/Users/2080f/Documents/URP/MEM_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/MEM_tb.v|
+!i113 1
+R8
+R9
+n@m@e@m_tb
+vtb_ex
+R16
+!i10b 1
+!s100 XY_LUUo^`QQH>jENW7oY32
+R7
+IbANjKF@XEi3@EC3f1CRbX0
+R1
+R0
+R14
+8C:/Users/2080f/Documents/URP/EX_tb.v
+FC:/Users/2080f/Documents/URP/EX_tb.v
+!i122 121
+L0 3 85
+R5
+r1
+!s85 0
+31
+R17
+!s107 C:/Users/2080f/Documents/URP/EX_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/EX_tb.v|
+!i113 1
+R8
+R9
+vtb_top
+R16
+!i10b 1
+!s100 XC[2`74AV3HQT1EBn0l<H2
+R7
+I35U6Z^i2`kazUKb5Jk5c@3
+R1
+R0
+R14
+8C:/Users/2080f/Documents/URP/Top_tb.v
+FC:/Users/2080f/Documents/URP/Top_tb.v
+!i122 123
+L0 3 90
+R5
+r1
+!s85 0
+31
+R17
+!s107 C:/Users/2080f/Documents/URP/Top_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/Top_tb.v|
+!i113 1
+R8
+R9
+vtb_wb
+R16
+!i10b 1
+!s100 dDdC@Udbc7BX4nLA6SPBW2
+R7
+Ik^l4=3B4lCC0b5h5ikaiK1
+R1
+R0
+w1641958786
+8C:/Users/2080f/Documents/URP/WB_tb.v
+FC:/Users/2080f/Documents/URP/WB_tb.v
+!i122 118
+L0 3 91
+R5
+r1
+!s85 0
+31
+R17
 !s107 C:/Users/2080f/Documents/URP/WB_tb.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/WB_tb.v|
 !i113 1
-R11
-R12
+R8
+R9
 vTop
-R20
+R16
 !i10b 1
-!s100 mUXh9CQ?i8^O?:Z@4igmG1
-R2
-I`L6SN5:<aK:2_;B@k2KUP3
-R4
+!s100 280:;P>3Ql_zPBOhV<>W_3
+R7
+IXOII73:nR1CYh51G7DMVW3
+R1
 R0
-w1641876954
+R14
 8C:/Users/2080f/Documents/URP/Top.v
 FC:/Users/2080f/Documents/URP/Top.v
-!i122 106
-L0 1 76
-R8
+!i122 117
+L0 1 80
+R5
 r1
 !s85 0
 31
-R22
+R15
 !s107 C:/Users/2080f/Documents/URP/Top.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/Top.v|
 !i113 1
-R11
-R12
+R8
+R9
 n@top
+vWB
+R13
+!i10b 1
+!s100 Xge8o6z<_jdH;fP6OcmB>2
+R7
+I7R00eLJCEWnmBYNh[nK^g0
+R1
+R0
+w1641885122
+Z18 8C:/Users/2080f/Documents/URP/WB.v
+Z19 FC:/Users/2080f/Documents/URP/WB.v
+!i122 116
+Z20 L0 1 29
+R5
+r1
+!s85 0
+31
+R15
+Z21 !s107 C:/Users/2080f/Documents/URP/WB.v|
+Z22 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/WB.v|
+!i113 1
+R8
+R9
 vWB
 !s110 1641884829
 !i10b 1
 !s100 gGz9hoCc8m5kR;JzDIZPe0
-R2
+R7
 I[E7A45LWQ:YhgRImI7fVQ1
-R4
+R1
 R0
-R21
-Z26 8C:/Users/2080f/Documents/URP/WB.v
-Z27 FC:/Users/2080f/Documents/URP/WB.v
+w1641565449
+R18
+R19
 !i122 70
-Z28 L0 1 29
-R8
+R20
+R5
 r1
 !s85 0
 31
 !s108 1641884829.000000
-Z29 !s107 C:/Users/2080f/Documents/URP/WB.v|
-Z30 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/2080f/Documents/URP/WB.v|
-!i113 1
-R11
-R12
-R17
-vWB
-R20
-!i10b 1
-!s100 Xge8o6z<_jdH;fP6OcmB>2
-R2
-I7R00eLJCEWnmBYNh[nK^g0
-R4
-R0
-w1641885122
-R26
-R27
-!i122 105
-R28
-R8
-r1
-!s85 0
-31
+R21
 R22
-R29
-R30
 !i113 1
-R11
-R12
+R8
+R9
+R6

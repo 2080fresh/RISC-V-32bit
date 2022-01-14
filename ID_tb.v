@@ -1,4 +1,4 @@
-`timescale 1ns / 1ns
+`timescale 1ns / 10ps
 
 module ID_tb;
 parameter CLOCK_PERIOD = 10;
@@ -184,9 +184,11 @@ begin : TESTBENCH
                 if (data_reg[cnt] !== 8'bx)
                     $display("%3d : %b", cnt, data_reg[cnt]);
             end
+            #(CLOCK_PERIOD/2)
+            $stop;
         end
     endcase
-            
+
 end
 endmodule
     
