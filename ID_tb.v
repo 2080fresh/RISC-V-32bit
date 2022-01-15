@@ -30,19 +30,19 @@ reg [31:0] load_pc_reg_value1;
 reg [31:0] load_pc_reg_value2;   // load register value from tb
 
 // OUTPUT
-reg control_j;
-reg [31:0] pc_j;
-reg [8:0] ctrl_ex;
-reg [31:0] pc4_ex;
-reg [31:0] r_data1;
-reg [31:0] r_data2;
-reg signed [31:0] extended;
-reg [31:0] rd_ex;
+wire control_j;
+wire [31:0] pc_j;
+wire [8:0] ctrl_ex;
+wire [31:0] pc4_ex;
+wire [31:0] r_data1;
+wire [31:0] r_data2;
+wire signed [31:0] extended;
+wire [31:0] rd_ex;
 
-reg [31:0] load_pc_reg_addr1;   // load register address1 from tb
-reg [31:0] load_pc_reg_addr2;   // load register address2 from tb
-reg [31:0] write_pc_reg_value; // register value to write on tb
-reg [31:0] write_pc_reg_addr;  // register addr to write on tb
+wire [31:0] load_pc_reg_addr1;   // load register address1 from tb
+wire [31:0] load_pc_reg_addr2;   // load register address2 from tb
+wire [31:0] write_pc_reg_value; // register value to write on tb
+wire [31:0] write_pc_reg_addr;  // register addr to write on tb
 
 // DATA REGISTER
 reg [7:0] data_reg [0:REG_SIZE - 1];
@@ -64,8 +64,9 @@ ID ID0 (.clk(clk),               .reset_n(reset_n),
 
 integer cnt;
 reg [31:0] stored_data;
+reg [31:0] stored_addr;
 // instruction = imm + rs1 + func3 + rd + op
-parameter [31:0] TEST_INS = {10'd7, 5'd20, 3'b000, 5'd12, 7'b0010011};
+parameter [31:0] TEST_INS = {12'd7, 5'd20, 3'b000, 5'd12, 7'b0010011};
 parameter [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                 ADDI_OP    = 7'b0010011, // I-type ADDI
                 LD_OP      = 7'b0000011, // I-type LD
@@ -80,13 +81,6 @@ initial
 begin : TESTBENCH
     $timeformat(-9, 2, "ns", 8);
     $display("%t: Bench START, Initializing data register...", $realtime);
-    // initialize data register
-    for (cnt = 0 ; cnt < REG_SIZE ; cnt = cnt + 1) begin
-        if (cnt < 4)
-            data_reg[cnt] = 8'd0;
-        else
-            data_reg[cnt] = 8'dx;
-    end
     // end of reset
     #CLOCK_PERIOD
     reset_n = 1;
@@ -97,6 +91,13 @@ begin : TESTBENCH
         $display("Success!");
     else
         $error("Failed!");
+    // initialize data register
+    for (cnt = 0 ; cnt < REG_SIZE ; cnt = cnt + 1) begin
+        if (cnt < 4)
+            data_reg[cnt] = 8'd0;
+        else
+            data_reg[cnt] = 8'dx;
+    end
     #3
     case (TEST_INS[6:0])
         /*---------------------------------------
@@ -109,7 +110,7 @@ begin : TESTBENCH
          *--------------------------------------*/
         ADDI_OP : begin
             $display("%t: ADDI instruction detected", $realtime);
-            op_write = 0; 
+            op_write = 1; 
             pipe_pc = 32'd400;
             pipe_pc4 = pipe_pc + 32'd4;
             pipe_data = TEST_INS;
@@ -131,46 +132,46 @@ begin : TESTBENCH
             $display("%t: Behaviour done except data write", $realtime);
             #(CLOCK_PERIOD/2)
             $display("%t: Let's see ID output is correct", $realtime);
-            if ((control_j === 0) && (pc_j === 0))
-                $display("control_j and pc_j is correct");
+            if (control_j === 1'b0)
+                $display("control_j is correct");
             else
-                $error("control_j or pc_j is wrong");
+                $error("control_j is wrong");
 
             $write("Expecting ctrl_ex 100000001...");
             if (ctrl_ex === 9'b100_00_0001)
-                $display("Yes %b is observed", ctrl_ex);
+                $display("Yes, %b is observed", ctrl_ex);
             else
-                $error("No %b is observed", ctrl_ex);
+                $error("No , %b is observed", ctrl_ex);
 
-            $write("Expecting pc4_ex %d...", pipe_pc4);
+            $write("Expecting pc4_ex\t%32d...", pipe_pc4);
             if (pc4_ex === pipe_pc4)
-                $display("Yes %d is observed", pc4_ex);
+                $display("Yes, %d is observed", pc4_ex);
             else
-                $error("No %d is observed", pc4_ex);
+                $error("No , %d is observed", pc4_ex);
 
-            $write("Expecting r_data1 %d...", 8);
+            $write("Expecting r_data1\t%32d...", 8);
             if (r_data1 === 32'd8)
-                $display("Yes %d is observed", r_data1);
+                $display("Yes, %d is observed", r_data1);
             else
-                $error("No %d is observed", r_data1);
+                $error("No , %d is observed", r_data1);
 
-            $write("Expecting r_data2_ex %b...", 32'bx);
+            $write("Expecting r_data2_ex\t%32b...", 32'bx);
             if (pc4_ex === 32'bx)
-                $display("Yes %b is observed", r_data2);
+                $display("Yes, %b is observed", r_data2);
             else
-                $error("No %b is observed", r_data2);
+                $error("No , %b is observed", r_data2);
 
-            $write("Expecting extended %d...", 32'd7);
+            $write("Expecting extended\t%32d...", 32'd7);
             if (extended === 32'd7)
-                $display("Yes %d is observed", extended);
+                $display("Yes, %d is observed", extended);
             else
-                $error("No %d is observed", extended);
+                $error("No , %d is observed", extended);
 
-            $write("Expecting rd_ex %d...", 32'd12);
+            $write("Expecting rd_ex\t%32d...", 32'd12);
             if (rd_ex === 32'd12)
-                $display("Yes %d is observed", rd_ex);
+                $display("Yes, %d is observed", rd_ex);
             else
-                $error("No %d is observed", rd_ex);
+                $error("No , %d is observed", rd_ex);
 
             // write action right after clk
             write_addr = rd_ex;
@@ -182,10 +183,8 @@ begin : TESTBENCH
             $display("We will display the regsters...");
             for (cnt = 0 ; cnt < REG_SIZE ; cnt = cnt + 1) begin
                 if (data_reg[cnt] !== 8'bx)
-                    $display("%3d : %b", cnt, data_reg[cnt]);
+                    $display("%3d | %b", cnt, data_reg[cnt]);
             end
-            #(CLOCK_PERIOD/2)
-            $stop;
         end
     endcase
 
