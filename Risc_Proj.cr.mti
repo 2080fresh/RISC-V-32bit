@@ -55,13 +55,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	tb_top
 
-} {} {}} C:/Users/2080f/Documents/URP/ID_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/ID_tb.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module ID_tb
-
-Top level modules:
-	ID_tb
-
 } {} {}} C:/Users/2080f/Documents/URP/EX_tb.v {2 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module tb_ex
@@ -73,13 +66,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 
 Top level modules:
 	tb_ex
-
-} {} {}} C:/Users/2080f/Documents/URP/IF_tb.V {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/IF_tb.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module IF_tb
-
-Top level modules:
-	IF_tb
 
 } {} {}} C:/Users/2080f/Documents/URP/MEM.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020

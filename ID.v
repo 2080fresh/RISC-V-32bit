@@ -34,8 +34,8 @@ reg [6:0] funct7_reg;
 reg signed [11:0] immediate_reg;
 reg [31:0] load_pc_reg_addr1_reg;
 reg [31:0] load_pc_reg_addr2_reg;
-reg [31:0] write_pc_reg_value_reg;
-reg [31:0] write_pc_reg_addr_reg;
+//reg [31:0] write_pc_reg_value_reg;
+//reg [31:0] write_pc_reg_addr_reg;
 reg [31:0] pc_j_reg;
 reg [31:0] pc4_ex_reg;
 reg [8:0] ctrl_ex_reg;
@@ -175,7 +175,7 @@ begin : DATA_REGISTER
     else
         load_pc_reg_addr1_reg = rs1_reg;
     load_pc_reg_addr2_reg = rs2_reg;
-
+/*
     if (op_write == 1'b1) begin
         write_pc_reg_addr_reg = write_addr;
         write_pc_reg_value_reg = write_data;
@@ -183,6 +183,7 @@ begin : DATA_REGISTER
         write_pc_reg_addr_reg = 32'd0;
         write_pc_reg_value_reg = 32'd0;
     end
+*/
 end
 
 always @(negedge reset_n or posedge clk)
@@ -199,8 +200,8 @@ begin : PIPELINE_REGISTER
         immediate_reg <= 12'd0;
         load_pc_reg_addr1_reg <= 32'd0;
         load_pc_reg_addr2_reg <= 32'd0;
-        write_pc_reg_value_reg <= 32'd0;
-        write_pc_reg_addr_reg <= 32'd0;
+//        write_pc_reg_value_reg <= 32'd0;
+//        write_pc_reg_addr_reg <= 32'd0;
         pc_j_reg <= 32'd0;
         pc4_ex_reg <= 32'd0;
         ctrl_ex_reg <= 9'd0;
@@ -231,8 +232,8 @@ assign r_data1 = r_data1_reg;
 assign r_data2 = r_data2_reg;
 assign load_pc_reg_addr1 = load_pc_reg_addr1_reg;
 assign load_pc_reg_addr2 = load_pc_reg_addr2_reg;
-assign write_pc_reg_value = write_pc_reg_value_reg;
-assign write_pc_reg_addr = write_pc_reg_addr_reg;
+assign write_pc_reg_value = write_data;
+assign write_pc_reg_addr = write_addr;
 assign extended = extended_reg;
 assign rd_ex = rd_ex_reg;
 

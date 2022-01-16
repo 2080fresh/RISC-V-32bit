@@ -98,7 +98,7 @@ begin : TESTBENCH
         else
             data_reg[cnt] = 8'dx;
     end
-    #3
+    #1
     case (TEST_INS[6:0])
         /*---------------------------------------
          * <ADDI test>
@@ -115,6 +115,7 @@ begin : TESTBENCH
             pipe_pc4 = pipe_pc + 32'd4;
             pipe_data = TEST_INS;
             stored_data = 32'd8;
+            #1
             // data_reg access for initialization
             for (cnt = 0; cnt < 4; cnt = cnt + 1) begin
                 data_reg[pipe_pc + 3 - cnt] = pipe_data[8 * cnt +: 8];
@@ -155,11 +156,11 @@ begin : TESTBENCH
             else
                 $error("No , %d is observed", r_data1);
 
-            $write("Expecting r_data2_ex\t%32b...", 32'bx);
-            if (pc4_ex === 32'bx)
-                $display("Yes, %b is observed", r_data2);
+            $write("Expecting r_data2_ex\t%32d...", 32'd0);
+            if (pc4_ex === 32'd0)
+                $display("Yes, %d is observed", r_data2);
             else
-                $error("No , %b is observed", r_data2);
+                $error("No , %d is observed", r_data2);
 
             $write("Expecting extended\t%32d...", 32'd7);
             if (extended === 32'd7)
@@ -177,10 +178,10 @@ begin : TESTBENCH
             write_addr = rd_ex;
             write_data = r_data1 + extended;
             // data_reg access
+            #1
             for (cnt = 0 ; cnt < 4 ; cnt = cnt + 1)
                 data_reg[write_pc_reg_addr + 3 - cnt] = write_pc_reg_value[8 * cnt +: 8];
-
-            $display("We will display the regsters...");
+            $display("%t: We will display the regsters...", $realtime);
             for (cnt = 0 ; cnt < REG_SIZE ; cnt = cnt + 1) begin
                 if (data_reg[cnt] !== 8'bx)
                     $display("%3d | %b", cnt, data_reg[cnt]);
