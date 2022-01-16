@@ -62,7 +62,7 @@ begin : ALU
         3'b100 :
             result = r_data1 << mux_out;                   // Shift left
         default :
-            result = (r_data1 < mux_out)? 32'sd1 : 32'sd0 ;  // SLT (ctrl_ex[3:1] == 3'b101)
+            result = ($signed(r_data1) < $signed(mux_out))? 32'sd1 : 32'sd0 ;  // SLT (ctrl_ex[3:1] == 3'b101)
     endcase
 end
 
