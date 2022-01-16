@@ -34,8 +34,8 @@ wire control_j;
 wire [31:0] pc_j;
 wire [8:0] ctrl_ex;
 wire [31:0] pc4_ex;
-wire [31:0] r_data1;
-wire [31:0] r_data2;
+wire signed [31:0] r_data1;
+wire signed [31:0] r_data2;
 wire signed [31:0] extended;
 wire [31:0] rd_ex;
 
@@ -64,9 +64,7 @@ ID ID0 (.clk(clk),               .reset_n(reset_n),
 
 integer cnt;
 reg [31:0] stored_data;
-reg [31:0] stored_addr;
-// instruction = imm + rs1 + func3 + rd + op
-parameter [31:0] TEST_INS = {12'd7, 5'd20, 3'b000, 5'd12, 7'b0010011};
+parameter [31:0] TEST_INS = {12'd0, 5'd12, 3'b000, 5'd4, 7'b1100111};
 parameter [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                 ADDI_OP    = 7'b0010011, // I-type ADDI
                 LD_OP      = 7'b0000011, // I-type LD
@@ -113,6 +111,10 @@ begin : TESTBENCH
             op_write = 1; 
             pipe_pc = 32'd400;
             pipe_pc4 = pipe_pc + 32'd4;
+            /*---------------------------------------------
+             * instruction = imm + rs1 + func3 + rd + op
+             * {12'd7, 5'd20, 3'b000, 5'd12, 7'b0010011}
+             *-------------------------------------------*/
             pipe_data = TEST_INS;
             stored_data = 32'd8;
             #1
@@ -150,14 +152,14 @@ begin : TESTBENCH
             else
                 $error("No , %d is observed", pc4_ex);
 
-            $write("Expecting r_data1\t%32d...", 8);
+            $write("Expecting r_data1 %32d...", 8);
             if (r_data1 === 32'd8)
                 $display("Yes, %d is observed", r_data1);
             else
                 $error("No , %d is observed", r_data1);
 
-            $write("Expecting r_data2_ex\t%32d...", 32'd0);
-            if (pc4_ex === 32'd0)
+            $write("Expecting r_data2 t%32d...", 32'd0);
+            if (r_data2 === 32'd0)
                 $display("Yes, %d is observed", r_data2);
             else
                 $error("No , %d is observed", r_data2);
@@ -168,8 +170,8 @@ begin : TESTBENCH
             else
                 $error("No , %d is observed", extended);
 
-            $write("Expecting rd_ex\t%32d...", 32'd12);
-            if (rd_ex === 32'd12)
+            $write("Expecting rd_ex\t%32d...", 32'd4);
+            if (rd_ex === 32'd4)
                 $display("Yes, %d is observed", rd_ex);
             else
                 $error("No , %d is observed", rd_ex);
@@ -177,6 +179,281 @@ begin : TESTBENCH
             // write action right after clk
             write_addr = rd_ex;
             write_data = r_data1 + extended;
+            // data_reg access
+            #1
+            for (cnt = 0 ; cnt < 4 ; cnt = cnt + 1)
+                data_reg[write_pc_reg_addr + 3 - cnt] = write_pc_reg_value[8 * cnt +: 8];
+            $display("%t: We will display the regsters...", $realtime);
+            for (cnt = 0 ; cnt < REG_SIZE ; cnt = cnt + 1) begin
+                if (data_reg[cnt] !== 8'bx)
+                    $display("%3d | %b", cnt, data_reg[cnt]);
+            end
+        end
+        /*---------------------------------------
+         * <LD test>
+         * [404]  LD $8, 64     ($20)
+         *           ^rd ^offset ^rs1
+         *           
+         * - register initialization
+         *   [404:407]: LD instruction
+         *   [84:87]  : 444
+         *--------------------------------------*/
+        LD_OP : begin
+            $display("%t: LD instruction detected", $realtime);
+            op_write = 1; 
+            pipe_pc = 32'd404;
+            pipe_pc4 = pipe_pc + 32'd4;
+            /*---------------------------------------------
+             * instruction = imm + rs1 + func3 + rd + op
+             * {12'd64, 5'd20, 3'b010, 5'd8, 7'b0000011}
+             *-------------------------------------------*/
+            pipe_data = TEST_INS;
+            #1
+            // data_reg access for initialization
+            for (cnt = 0; cnt < 4; cnt = cnt + 1) begin
+                data_reg[pipe_pc + 3 - cnt] = pipe_data[8 * cnt +: 8];
+            end
+            // read data from data_reg
+            load_pc_reg_value1 = {data_reg[load_pc_reg_addr1],
+                                  data_reg[load_pc_reg_addr1 + 1],
+                                  data_reg[load_pc_reg_addr1 + 2],
+                                  data_reg[load_pc_reg_addr1 + 3]};
+            load_pc_reg_value2 = {data_reg[load_pc_reg_addr2],
+                                  data_reg[load_pc_reg_addr2 + 1],
+                                  data_reg[load_pc_reg_addr2 + 2],
+                                  data_reg[load_pc_reg_addr2 + 3]};
+            $display("%t: Behaviour done except data write", $realtime);
+            #(CLOCK_PERIOD/2)
+            $display("%t: Let's see ID output is correct", $realtime);
+            $write("Expecting control_j 0...");
+            if (control_j === 1'b0)
+                $display("Yes, %b is observed", control_j);
+            else
+                $error("No , %b is observed", control_j);
+
+            $write("Expecting ctrl_ex 101100001...");
+            if (ctrl_ex === 9'b101_10_0001)
+                $display("Yes, %b is observed", ctrl_ex);
+            else
+                $error("No , %b is observed", ctrl_ex);
+
+            $write("Expecting pc4_ex %d...", pipe_pc4);
+            if (pc4_ex === pipe_pc4)
+                $display("Yes, %d is observed", pc4_ex);
+            else
+                $error("No , %d is observed", pc4_ex);
+
+            $write("Expecting r_data1 %d?", 32'd20);
+            if (r_data1 === 32'd20)
+                $display("Yes, %d is observed", r_data1);
+            else
+                $error("No , %d is observed", r_data1);
+
+            $write("Expecting r_data2 %d?", 32'd0);
+            if (r_data2 === 32'd0)
+                $display("Yes, %d is observed", r_data2);
+            else
+                $error("No , %d is observed", r_data2);
+
+            $write("Expecting extended %d?", 32'd64);
+            if (extended === 32'd64)
+                $display("Yes, %d is observed", extended);
+            else
+                $error("No , %d is observed", extended);
+
+            $write("Expecting rd_ex %d?", 32'd8);
+            if (rd_ex === 32'd8)
+                $display("Yes, %d is observed", rd_ex);
+            else
+                $error("No , %d is observed", rd_ex);
+            // write action right after clk
+            write_addr = rd_ex;
+            write_data = 32'd444;
+            // data_reg access
+            #1
+            for (cnt = 0 ; cnt < 4 ; cnt = cnt + 1)
+                data_reg[write_pc_reg_addr + 3 - cnt] = write_pc_reg_value[8 * cnt +: 8];
+            $display("%t: We will display the regsters...", $realtime);
+            for (cnt = 0 ; cnt < REG_SIZE ; cnt = cnt + 1) begin
+                if (data_reg[cnt] !== 8'bx)
+                    $display("%3d | %b", cnt, data_reg[cnt]);
+            end
+        end
+        /*---------------------------------------
+         * <JALR test>
+         * [300]  JALR $4, $12, 0
+         *             rd  rs1  off 
+         * - register initialization
+         *   [300:303]: jalr instruction
+         *   [12:15]  : 500
+         *--------------------------------------*/
+        JALR_OP : begin
+            $display("%t: JALR instruction detected", $realtime);
+            op_write = 0; 
+            pipe_pc = 32'd300;
+            pipe_pc4 = pipe_pc + 32'd4;
+            pipe_data = TEST_INS;
+            stored_data = 32'd500;
+            #1
+            // data_reg access for initialization
+            for (cnt = 0; cnt < 4; cnt = cnt + 1) begin
+                data_reg[pipe_pc + 3 - cnt] = pipe_data[8 * cnt +: 8];
+                data_reg[load_pc_reg_addr1 + 3 - cnt] = stored_data[8 * cnt +: 8];
+            end
+            // read data from data_reg
+            load_pc_reg_value1 = {data_reg[load_pc_reg_addr1],
+                                  data_reg[load_pc_reg_addr1 + 1],
+                                  data_reg[load_pc_reg_addr1 + 2],
+                                  data_reg[load_pc_reg_addr1 + 3]};
+            load_pc_reg_value2 = {data_reg[load_pc_reg_addr2],
+                                  data_reg[load_pc_reg_addr2 + 1],
+                                  data_reg[load_pc_reg_addr2 + 2],
+                                  data_reg[load_pc_reg_addr2 + 3]};
+            $display("%t: Behaviour done except data write", $realtime);
+            #(CLOCK_PERIOD/2)
+            $display("%t: Let's see ID output is correct", $realtime);
+
+            $write("Expecting control_j\t%32d...", control_j);
+            if (control_j === 1'b1)
+                $display("Yes, %b is observed", control_j);
+            else
+                $error("No , %b is observed", control_j);
+
+            $write("Expecting ctrl_ex 110000000...");
+            if (ctrl_ex === 9'b110_00_0000)
+                $display("Yes, %b is observed", ctrl_ex);
+            else
+                $error("No , %b is observed", ctrl_ex);
+
+            $write("Expecting pc4_ex\t%32d...", pipe_pc4);
+            if (pc4_ex === pipe_pc4)
+                $display("Yes, %d is observed", pc4_ex);
+            else
+                $error("No , %d is observed", pc4_ex);
+
+            $write("Expecting r_data1\t%32d...", 32'd500);
+            if (r_data1 === 32'd500)
+                $display("Yes, %d is observed", r_data1);
+            else
+                $error("No , %d is observed", r_data1);
+
+            $write("Expecting r_data2_ex\t%32d...", 32'd0);
+            if (r_data2 === 32'd0)
+                $display("Yes, %d is observed", r_data2);
+            else
+                $error("No , %d is observed", r_data2);
+
+            $write("Expecting extended\t%32d...", 32'd0);
+            if (extended === 32'd0)
+                $display("Yes, %d is observed", extended);
+            else
+                $error("No , %d is observed", extended);
+
+            $write("Expecting rd_ex\t%32d...", 32'd4);
+            if (rd_ex === 32'd4)
+                $display("Yes, %d is observed", rd_ex);
+            else
+                $error("No , %d is observed", rd_ex);
+
+            $write("Expecting pc_j\t%32d...", 32'd500);
+            if (pc_j === 32'd500)
+                $display("Yes, %d is observed", pc_j);
+            else
+                $error("No , %d is observed", pc_j);
+
+            // write action right after clk
+            write_addr = 32'd4;
+            write_data = pipe_pc4;
+            // data_reg access
+            #1
+            for (cnt = 0 ; cnt < 4 ; cnt = cnt + 1)
+                data_reg[write_pc_reg_addr + 3 - cnt] = write_pc_reg_value[8 * cnt +: 8];
+            $display("%t: We will display the regsters...", $realtime);
+            for (cnt = 0 ; cnt < REG_SIZE ; cnt = cnt + 1) begin
+                if (data_reg[cnt] !== 8'bx)
+                    $display("%3d | %b", cnt, data_reg[cnt]);
+            end
+        end
+        /*---------------------------------------
+         * <SD test>
+         * [404]  SD $12, 20       ($8)
+         *           ^rs2 ^offset   ^rs1
+         * - register initialization
+         *   [404:407]: SD instruction
+         *   [12:15]  : 72
+         *--------------------------------------*/
+        S_TYPE_OP : begin
+            $display("%t: SD instruction detected", $realtime);
+            op_write = 0; 
+            pipe_pc = 32'd404;
+            pipe_pc4 = pipe_pc + 32'd4;
+            /*---------------------------------------------------------
+             * instruction = imm + rs2 + rs1 + func3 + imm + op
+             * {7'b0000000, 5'd12, 5'd8, 3'b010, 5'b10100, 7'b0100011}
+             *-------------------------------------------------------*/
+            pipe_data = TEST_INS;
+            stored_data = 32'd72;
+            #1
+            // data_reg access for initialization
+            for (cnt = 0; cnt < 4; cnt = cnt + 1) begin
+                data_reg[pipe_pc + 3 - cnt] = pipe_data[8 * cnt +: 8];
+                data_reg[load_pc_reg_addr2 + 3 - cnt] = stored_data[8 * cnt +: 8];
+            end
+            // read data from data_reg
+            load_pc_reg_value1 = {data_reg[load_pc_reg_addr1],
+                                  data_reg[load_pc_reg_addr1 + 1],
+                                  data_reg[load_pc_reg_addr1 + 2],
+                                  data_reg[load_pc_reg_addr1 + 3]};
+            load_pc_reg_value2 = {data_reg[load_pc_reg_addr2],
+                                  data_reg[load_pc_reg_addr2 + 1],
+                                  data_reg[load_pc_reg_addr2 + 2],
+                                  data_reg[load_pc_reg_addr2 + 3]};
+            $display("%t: Behaviour done except data write", $realtime);
+            #(CLOCK_PERIOD/2)
+            $display("%t: Let's see ID output is correct", $realtime);
+            $write("Expecting control_j 0...");
+            if (control_j === 1'b0)
+                $display("Yes, %b is observed", control_j);
+            else
+                $error("No , %b is observed", control_j);
+
+            $write("Expecting ctrl_ex 000010001...");
+            if (ctrl_ex === 9'b000_01_0001)
+                $display("Yes, %b is observed", ctrl_ex);
+            else
+                $error("No , %b is observed", ctrl_ex);
+
+            $write("Expecting pc4_ex %d...", pipe_pc4);
+            if (pc4_ex === pipe_pc4)
+                $display("Yes, %d is observed", pc4_ex);
+            else
+                $error("No , %d is observed", pc4_ex);
+
+            $write("Expecting r_data1 %d...", 32'sd8);
+            if (r_data1 === 32'sd8)
+                $display("Yes, %d is observed", r_data1);
+            else
+                $error("No , %d is observed", r_data1);
+
+            $write("Expecting r_data2 %d...", 32'sd72);
+            if (r_data2 === 32'sd72)
+                $display("Yes, %d is observed", r_data2);
+            else
+                $error("No , %d is observed", r_data2);
+
+            $write("Expecting extended %d...", 32'sd20);
+            if (extended === 32'sd20)
+                $display("Yes, %d is observed", extended);
+            else
+                $error("No , %d is observed", extended);
+
+            $write("Expecting rd_ex %d...", 32'd4);
+            if (rd_ex === 32'd4)
+                $display("Yes, %d is observed", rd_ex);
+            else
+                $error("No , %d is observed", rd_ex);
+
+
             // data_reg access
             #1
             for (cnt = 0 ; cnt < 4 ; cnt = cnt + 1)

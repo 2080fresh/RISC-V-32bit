@@ -1,59 +1,16 @@
-C:/Users/2080f/Documents/URP/WB.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/WB.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module WB
-
-Top level modules:
-	WB
-
-} {} {}} C:/Users/2080f/Documents/URP/Top.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module Top
-
-Top level modules:
-	Top
-
-} {} {}} C:/Users/2080f/Documents/URP/MEM_tb.v {2 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM_tb.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module MEM_tb
-** Warning: C:/Users/2080f/Documents/URP/MEM_tb.v(128): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-Top level modules:
-	MEM_tb
-
-} {} {}} C:/Users/2080f/Documents/URP/ID.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/ID.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module ID
-
-Top level modules:
-	ID
-
-} {} {}} C:/Users/2080f/Documents/URP/EX.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX.v
+C:/Users/2080f/Documents/URP/EX.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module EX
 
 Top level modules:
 	EX
 
-} {} {}} C:/Users/2080f/Documents/URP/WB_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/WB_tb.v
+} {} {}} C:/Users/2080f/Documents/URP/WB.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/WB.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module tb_wb
+-- Compiling module WB
 
 Top level modules:
-	tb_wb
-
-} {} {}} C:/Users/2080f/Documents/URP/IF.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/IF.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module IF
-
-Top level modules:
-	IF
-
-} {} {}} C:/Users/2080f/Documents/URP/Top_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top_tb.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module tb_top
-
-Top level modules:
-	tb_top
+	WB
 
 } {} {}} C:/Users/2080f/Documents/URP/EX_tb.v {2 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -67,11 +24,47 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	tb_ex
 
+} {} {}} C:/Users/2080f/Documents/URP/WB_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/WB_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module tb_wb
+
+Top level modules:
+	tb_wb
+
 } {} {}} C:/Users/2080f/Documents/URP/MEM.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module MEM
 
 Top level modules:
 	MEM
+
+} {} {}} C:/Users/2080f/Documents/URP/IF.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/IF.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module IF
+
+Top level modules:
+	IF
+
+} {} {}} C:/Users/2080f/Documents/URP/Top.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Top
+
+Top level modules:
+	Top
+
+} {} {}} C:/Users/2080f/Documents/URP/Top_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module tb_top
+
+Top level modules:
+	tb_top
+
+} {} {}} C:/Users/2080f/Documents/URP/MEM_tb.v {2 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/MEM_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module MEM_tb
+** Warning: C:/Users/2080f/Documents/URP/MEM_tb.v(128): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+Top level modules:
+	MEM_tb
 
 } {} {}}

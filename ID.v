@@ -20,7 +20,8 @@ module ID(
     output [31:0] extended,
     output [31:0] rd_ex,
     output [8:0] ctrl_ex,
-    output [31:0] pc4_ex
+    output [31:0] pc4_ex,
+    output op_write_top
 );
 
 reg signed [31:0] extended_reg;
@@ -83,10 +84,9 @@ begin : SEPERTATE_INST
             rs2_reg = pipe_data[24:20];
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
-            rd_reg = pipe_data[11:7];
         end
         SB_TYPE_OP : begin
-            immediate_reg = $signed({pipe_data[7], pipe_data[30:25], pipe_data[11:8]});
+            immediate_reg = $signed({pipe_data[31], pipe_data[7], pipe_data[30:25], pipe_data[11:8]});
             rs2_reg = pipe_data[24:20];
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
@@ -158,12 +158,12 @@ begin : CONTROL_GENERTATOR
     endcase
 end
 
-always @(control_bit)
+always @(control_bit or load_pc_reg_value1 or pipe_pc or extended_reg)
 begin : PC_J_MUX
     if (control_bit[9] == 0) begin
         pc_j_reg = pipe_pc + {extended_reg << 1}; //Address adder( Shift left1, Add )
     end else begin
-        pc_j_reg = r_data1_reg;
+        pc_j_reg = load_pc_reg_value1;
     end
 end
 
@@ -216,8 +216,8 @@ begin : PIPELINE_REGISTER
             r_data1_reg <= rs1_reg;
         else
             r_data1_reg <= load_pc_reg_value1;
-        if (control_bit[10] == 1'b1)
-            rd_ex_reg <= 32'd1;
+        if (control_bit[8:6] == 3'b000)
+            rd_ex_reg <= 32'd4;
         else
             rd_ex_reg <= rd_reg;
     end
@@ -236,6 +236,6 @@ assign write_pc_reg_value = write_data;
 assign write_pc_reg_addr = write_addr;
 assign extended = extended_reg;
 assign rd_ex = rd_ex_reg;
-
+assign op_write_top = op_write;
 
 endmodule
