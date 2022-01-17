@@ -5,6 +5,7 @@ module Top(
     input [31:0] load_pc_reg_value1,    // ID_register output1
     input [31:0] load_pc_reg_value2,    // ID_register output2
     input [31:0] read_data,             // Data mem output (data)
+    output op_write_top,                // ID_register ctrl bit
     output [1:0] mem_ctrl_input,        // Data mem input (ctrl bit)
     output [31:0] ins_addr,             // instruction mem input
     output [31:0] load_pc_reg_addr1,    // ID_register input (read_reg address)
@@ -57,7 +58,8 @@ ID ID_module(.clk(clk), .reset_n(reset_n), .op_write(op_write),
              .write_pc_reg_addr(write_pc_reg_addr),
              .control_j(control_j), .pc_j(pc_j), .r_data1(r_data1),
              .r_data2(r_data2), .extended(extended),
-             .rd_ex(rd_ex), .ctrl_ex(ctrl_ex), .pc4_ex(pc4_ex));
+             .rd_ex(rd_ex), .ctrl_ex(ctrl_ex), .pc4_ex(pc4_ex),
+             .op_write_top(op_write_top));
              
 EX EX_module(.clk(clk), .reset_n(reset_n), .rd_ex(rd_ex),
              .ctrl_ex(ctrl_ex), .r_data1(r_data1), .r_data2(r_data2),
