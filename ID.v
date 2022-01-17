@@ -94,7 +94,6 @@ begin : SEPERTATE_INST
         UJ_TYPE_OP : begin
             immediate_reg = $signed({pipe_data[31], pipe_data[19:12], pipe_data[20],
                                     pipe_data[30:21]});
-            funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
         end
     endcase
