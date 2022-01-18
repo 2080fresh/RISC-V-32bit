@@ -66,7 +66,7 @@ integer cnt;
 reg [31:0] stored_data;
 reg [31:0] stored_data1;
 reg [31:0] stored_data2;
-parameter [31:0] TEST_INS = {20'b0000111100000000000, 5'd4, 7'b1101111};
+parameter [31:0] TEST_INS = {7'b0000000,5'd32,5'd28,3'b000,5'd16,7'b0110011};
 parameter [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                 ADDI_OP    = 7'b0010011, // I-type ADDI
                 LD_OP      = 7'b0000011, // I-type LD
@@ -560,13 +560,15 @@ begin : TESTBENCH
                     $display("%3d | %b", cnt, data_reg[cnt]);
             end
         end
-        /*---------------------------------------                   to be continued
-         * < test> 7'b0000000,5'd 
+        /*---------------------------------------
+         * < test> 7'b0000000,5'd32,5'd28,3'b000,5'd16,7'b0110011
          * [100]  ADD x4($16), x7($28), x8($32)     
-         *             re       rs1      rs2
+         *             rd       rs1      rs2
          * - register initialization
-         *   [100:103]: JAL instruction
-         * 
+         *   [100:103]: ADD instruction
+         *   [28:31] 3954
+         *   [32:35] 1542
+         *   [16:19] add result
          *--------------------------------------*/
         R_TYPE_OP : begin
             $display("%t: JALR instruction detected", $realtime);
@@ -574,8 +576,8 @@ begin : TESTBENCH
             pipe_pc = 32'd100;
             pipe_pc4 = pipe_pc + 32'd4;
             pipe_data = TEST_INS;
-            stored_data1 = 32'd1542;
-            stored_data2 = 32'd3954;
+            stored_data1 = 32'd3954;
+            stored_data2 = 32'd1542;
             #1
             // data_reg access for initialization
             for (cnt = 0; cnt < 4; cnt = cnt + 1) begin
@@ -614,14 +616,14 @@ begin : TESTBENCH
             else
                 $error("No , %d is observed", pc4_ex);
 
-            $write("Expecting r_data1\t%32d...", 32'd1542);
-            if (r_data1 === 32'd1542)
+            $write("Expecting r_data1\t%32d...", 32'd3954);
+            if (r_data1 === 32'd3954)
                 $display("Yes, %d is observed", r_data1);
             else
                 $error("No , %d is observed", r_data1);
 
-            $write("Expecting r_data2_ex\t%32d...", 32'd3954);
-            if (r_data2 === 32'd3954)
+            $write("Expecting r_data2_ex\t%32d...", 32'd1542);
+            if (r_data2 === 32'd1542)
                 $display("Yes, %d is observed", r_data2);
             else
                 $error("No , %d is observed", r_data2);
