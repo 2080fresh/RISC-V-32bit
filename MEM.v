@@ -33,7 +33,7 @@ begin : REGISTER
         mem_data_reg <= 32'sd0;
         alu_data_reg <= 32'sd0;
     end else begin
-        ctrl_wb_reg <= ctrl_mem[2:0];
+        ctrl_wb_reg <= ctrl_mem[4:2];
         rd_wb_reg <= rd_mem;
         pc4_wb_reg <= pc4_mem;
         mem_data_reg <= read_data;      // memory output
@@ -46,7 +46,7 @@ end
 
 assign address = alu_result;        // Data memory input
 assign w_data = write_data1;        // Data memory input
-assign mem_ctrl_input = ctrl_mem[4:3];   // Data memoty input
+assign mem_ctrl_input = ctrl_mem[1:0];   // Data memoty input
 
 assign ctrl_wb = ctrl_wb_reg;
 assign rd_wb = rd_wb_reg;

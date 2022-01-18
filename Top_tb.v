@@ -1,14 +1,15 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 10ps
 
-module tb_top;
-localparam module_delay = 0.1;
-localparam Mem_delay = 1;
-localparam Mem_size = 100000;
+module Top_tb;
+parameter MODULE_DELAY = 0.1;
+parameter MEM_DELAY = 1;
+parameter MEM_SIZE = 512;
+parameter CLK_PERIOD = 10;
 //clock
-reg clk;
+reg clk = 1'b0;
 
 //input
-reg reset_n;
+reg reset_n = 1'b0;
 reg [31:0] ins_data;
 reg [31:0] load_pc_reg_value1;
 reg [31:0] load_pc_reg_value2;
@@ -26,9 +27,9 @@ wire [31:0] address;
 wire [31:0] w_data;
 
 //etc
-reg [7:0] Memory[0:Mem_size-1];
-reg [7:0] predict[0:Mem_size-1];
-integer i, FID;
+reg [7:0] memory[0:MEM_SIZE-1];
+reg [7:0] predict[0:MEM_SIZE-1];
+integer i, FID, cnt;
 
 Top Top_module(.clk(clk), .reset_n(reset_n), .ins_data(ins_data),
                .load_pc_reg_value1(load_pc_reg_value1),
@@ -41,36 +42,46 @@ Top Top_module(.clk(clk), .reset_n(reset_n), .ins_data(ins_data),
                .write_pc_reg_addr(write_pc_reg_addr),
                .address(address), .w_data(w_data));
 
+always #(CLK_PERIOD / 2) clk = ~ clk;
+
 initial begin
-    clk = 1'b0; reset_n = 1'b0;
     ins_data = 32'd0; read_data = 32'd0;
     load_pc_reg_value1 = 32'd0;
     load_pc_reg_value2 = 32'd0;
-    $readmemh("memory.txt", Memory);
+    $readmemh("memory.txt", memory);
     $readmemh("predict.txt", predict);
-/*--------------------------------------------------------------------------------
 
+    #3
+    reset_n = 1'b1;
+    #1000
 
-maybe....
-just #1000000000000000000 and reset_n = 1'b1; here
-
-
---------------------------------------------------------------------------------*/
-    #10 FID = $fopen("result.txt");
-        for(i=0; i<Mem_size; i=i+1) begin
-            if(Memory[i] !== predict[i])
-                $fdisplay(FID, "Address %g error\nresult : %h\npredict value : %h",
-                               i, Memory[i], predict[i]);
+    #CLK_PERIOD
+    FID = $fopen("result.txt");
+    for(i=0; i<MEM_SIZE; i = i + 1) begin
+        if(memory[i] !== predict[i]) begin
+        $fdisplay(FID, "Address %g error\nresult : %h\npredict value : %h",
+                  i, memory[i], predict[i]);
         end
-    #10 $fdisplay(FID, "------------------------------------");
-        $fdisplay(FID, "Address      data");
-        for(i=0; i<Mem_size; i=i+4) begin
-            $fdisplay(FID, "%d %h %h %h %h", i, Memory[i], Memory[i+1], Memory[i+2], Memory[i+3]);
-        end
-    #10 $fclose("FID"); $stop;
+    end
+    #CLK_PERIOD
+    $fdisplay(FID, "------------------------------------");
+    $fdisplay(FID, "Address      data");
+    for(i = 0; i < MEM_SIZE; i = i + 4) begin
+        $fdisplay(FID, "%d %h %h %h %h", i, memory[i], memory[i+1], memory[i+2], memory[i+3]);
+    end
+    #CLK_PERIOD
+
+
+    $display("%t: We will display the regsters...", $realtime);
+    for (cnt = 0 ; cnt < MEM_SIZE ; cnt = cnt + 1) begin
+        if (memory[cnt] !== 8'bx)
+            $display("%3d | %b", cnt, memory[cnt]);
+    end
+    $stop;
+    $fclose("FID");
 end
 
-always #5 clk = ~clk;
+
 
 always @(op_write_top or mem_ctrl_input or ins_addr
          or load_pc_reg_addr1 or load_pc_reg_addr2
@@ -78,25 +89,25 @@ always @(op_write_top or mem_ctrl_input or ins_addr
          or address or w_data)
 begin : Memory_module
 // IF module
-    ins_data <= #Mem_delay {Memory[ins_addr],
-                            Memory[ins_addr+1],
-                            Memory[ins_addr+2],
-                            Memory[ins_addr+3]};
+    ins_data <= #MEM_DELAY {memory[ins_addr+3],
+                            memory[ins_addr+2],
+                            memory[ins_addr+1],
+                            memory[ins_addr]};
 
 // ID module
-    load_pc_reg_value1 <= #Mem_delay {Memory[load_pc_reg_addr1],
-                                      Memory[load_pc_reg_addr1+1],
-                                      Memory[load_pc_reg_addr1+2],
-                                      Memory[load_pc_reg_addr1+3]};
-    load_pc_reg_value2 <= #Mem_delay {Memory[load_pc_reg_addr2],
-                                      Memory[load_pc_reg_addr2+1],
-                                      Memory[load_pc_reg_addr2+2],
-                                      Memory[load_pc_reg_addr2+3]};
+    load_pc_reg_value1 <= #MEM_DELAY {memory[load_pc_reg_addr1+3],
+                                      memory[load_pc_reg_addr1+2],
+                                      memory[load_pc_reg_addr1+1],
+                                      memory[load_pc_reg_addr1]};
+    load_pc_reg_value2 <= #MEM_DELAY {memory[load_pc_reg_addr2+3],
+                                      memory[load_pc_reg_addr2+2],
+                                      memory[load_pc_reg_addr2+1],
+                                      memory[load_pc_reg_addr2]};
     if (op_write_top === 1'b1) begin
-        {Memory[write_pc_reg_addr],
-         Memory[write_pc_reg_addr+1],
-         Memory[write_pc_reg_addr+2],
-         Memory[write_pc_reg_addr+3]} <= #Mem_delay write_pc_reg_value;
+        memory[write_pc_reg_addr + 3] <= write_pc_reg_value[31:24];
+        memory[write_pc_reg_addr + 2] <= write_pc_reg_value[23:16];
+        memory[write_pc_reg_addr + 1] <= write_pc_reg_value[15:8];
+        memory[write_pc_reg_addr] <= write_pc_reg_value[7:0];
     end
 
 // MEM module
@@ -104,15 +115,14 @@ begin : Memory_module
     if ((mem_ctrl_input[1] === 1'b1) && (mem_ctrl_input[0] === 1'b1)) begin
         $stop;
     end else if (mem_ctrl_input[1] === 1'b1) begin
-        read_data <= #Mem_delay {Memory[address],
-                                 Memory[address+1],
-                                 Memory[address+2],
-                                 Memory[address+3]};
+        read_data <= #MEM_DELAY {memory[address+3],
+                                 memory[address+2],
+                                 memory[address+1],
+                                 memory[address]};
     end else if(mem_ctrl_input[0] === 1'b1) begin
-        {Memory[address],
-         Memory[address+1],
-         Memory[address+2],
-         Memory[address+3]} <= #Mem_delay w_data;
+        #MEM_DELAY
+        for (cnt = 0 ; cnt < 4 ; cnt = cnt + 1)
+            memory[address + 3 - cnt] <= w_data[8 * cnt +: 8];
     end
 end
 

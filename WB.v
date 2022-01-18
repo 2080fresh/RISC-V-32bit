@@ -11,13 +11,13 @@ module WB(
 
 reg signed [31:0] mux_out_reg;
 
-assign op_write = ctrl_wb[0];
+assign op_write = ctrl_wb[2];
 assign write_addr = rd_wb;
 assign write_data = mux_out_reg;
 
 always @(ctrl_wb or pc4_wb or mem_data or alu_data)
 begin : MUX
-    case(ctrl_wb[2:1])
+    case(ctrl_wb[1:0])
         2'b00 : 
             mux_out_reg = alu_data;
         2'b01 : 

@@ -37,9 +37,10 @@ end
 always @(posedge clk or negedge reset_n)
 begin : PC_REGISTER
     if (reset_n == 1'b0) begin
-        pc_out_reg <= 32'd64;
-        pipe_pc_reg <= 32'd64;
-        pipe_pc4_reg <= 32'd68;
+        pc_out_reg <= 32'd128;
+        pipe_pc_reg <= 32'd0;
+        pc_in_reg <= 32'd128;
+        pipe_pc4_reg <= 32'd0;
         pipe_data_reg <= 32'd0;
     end else begin
         pc_out_reg <= pc_in_reg;
