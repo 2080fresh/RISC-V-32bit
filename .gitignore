@@ -14,6 +14,9 @@
 *.bsf
 *.ini
 *.cr.mti
+*.qws
+*.qsf
+*.qpf
 
 # ignore simulation output of ModelSim
 wlf*

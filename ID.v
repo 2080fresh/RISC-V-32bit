@@ -32,7 +32,7 @@ reg [31:0] r_data2_reg;
 reg [31:0] rd_reg;
 reg [2:0] funct3_reg;
 reg [6:0] funct7_reg;
-reg signed [11:0] immediate_reg;
+reg signed [19:0] immediate_reg;
 reg [31:0] load_pc_reg_addr1_reg;
 reg [31:0] load_pc_reg_addr2_reg;
 //reg [31:0] write_pc_reg_value_reg;
@@ -60,41 +60,65 @@ begin : SEPERTATE_INST
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
+            immediate_reg = 20'sd0;
         end
         ADDI_OP : begin
             immediate_reg = $signed(pipe_data[31:20]);
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
+            funct7_reg = 7'd0;
+            rs2_reg = 5'd0;
         end
         LD_OP : begin
             immediate_reg = $signed(pipe_data[31:20]);
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
+            funct7_reg = 7'd0;
+            rs2_reg = 5'd0;
+            rd_reg = 5'd0;
         end
         JALR_OP : begin
             immediate_reg = $signed(pipe_data[31:20]);
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
+            funct7_reg = 7'd0;
+            rs2_reg = 5'd0;
         end
         S_TYPE_OP : begin
             immediate_reg = $signed({pipe_data[31:25], pipe_data[11:7]});
             rs2_reg = pipe_data[24:20];
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
+            funct7_reg = 7'd0;
+            rd_reg = 5'd0;
         end
         SB_TYPE_OP : begin
             immediate_reg = $signed({pipe_data[31], pipe_data[7], pipe_data[30:25], pipe_data[11:8]});
             rs2_reg = pipe_data[24:20];
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
+            funct7_reg = 7'd0;
+            rd_reg = 5'd0;
         end
         UJ_TYPE_OP : begin
             immediate_reg = $signed({pipe_data[31], pipe_data[19:12], pipe_data[20],
                                     pipe_data[30:21]});
             rd_reg = pipe_data[11:7];
+            funct7_reg = 7'd0;
+            rs2_reg = 5'd0;
+            rs1_reg = 5'd0;
+            funct3_reg = 3'd0;
+        end
+        default : begin
+            immediate_reg = 20'sd0;
+            funct7_reg = 7'd0;
+            rs2_reg = 5'd0;
+            rs1_reg = 5'd0;
+            funct3_reg = 3'd0;
+            rd_reg = 5'd0;
         end
     endcase
 end
@@ -121,7 +145,7 @@ end
  *
  * Only control_bit[8:0] will go through OUTPUT 'ctrl_ex'
  *---------------------------------------------------------*/
-always @(pipe_data)
+always @(pipe_data or funct3_reg or funct7_reg)
 begin : CONTROL_GENERTATOR
     case (pipe_data[6:0])
         ADDI_OP :
@@ -136,7 +160,7 @@ begin : CONTROL_GENERTATOR
             control_bit = 12'b100_000_00_0000;
         UJ_TYPE_OP : // JAL
             control_bit = 12'b010_110_00_0000;
-        R_TYPE_OP : begin
+        default : begin // R-type
             if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0) // add
                 control_bit = 12'b000_100_00_0000;
             else if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b1) //sub
@@ -147,13 +171,9 @@ begin : CONTROL_GENERTATOR
                 control_bit = 12'b000_100_00_1010;
             else if (funct3_reg == 3'b111) // AND
                 control_bit = 12'b000_100_00_0100;
-            else if (funct3_reg == 3'b110) // OR
+            else // OR
                 control_bit = 12'b000_100_00_0110;
-            else
-                control_bit = 12'b111_111_11_1111; // default condition
         end
-        default :
-            control_bit = 12'b111_111_11_1111; // default condition
     endcase
 end
 
@@ -189,23 +209,13 @@ always @(negedge reset_n or posedge clk)
 begin : PIPELINE_REGISTER
     if (reset_n == 1'b0) begin
         extended_reg <= 32'd0;
-        rs1_reg <= 32'd0;
-        rs2_reg <= 32'd0;
         r_data1_reg <= 32'd0;
         r_data2_reg <= 32'd0;
-        rd_reg <= 32'd0;
-        funct3_reg <= 3'd0;
-        funct7_reg <= 7'd0;
-        immediate_reg <= 12'd0;
-        load_pc_reg_addr1_reg <= 32'd0;
-        load_pc_reg_addr2_reg <= 32'd0;
 //        write_pc_reg_value_reg <= 32'd0;
 //        write_pc_reg_addr_reg <= 32'd0;
-        pc_j_reg <= 32'd0;
         pc4_ex_reg <= 32'd0;
         ctrl_ex_reg <= 9'd0;
         rd_ex_reg <= 32'd0;
-        control_bit <= 12'd0;
     end else begin
         ctrl_ex_reg <= control_bit[8:0];
         pc4_ex_reg <= pipe_pc4;

@@ -17,9 +17,6 @@ module MEM(
     output [31:0] w_data          // Data memory input
 );
 
-wire [31:0] alu_result_wire;
-wire [31:0] write_data1_wire;
-wire [1:0] ctrl_mem_wire;
 
 reg [2:0] ctrl_wb_reg;
 reg [31:0] rd_wb_reg;
@@ -44,15 +41,12 @@ begin : REGISTER
     end
 end
 
-assign alu_result_wire = alu_result;
-assign write_data1_wire = write_data1;
-assign ctrl_mem_wire = ctrl_mem[4:3];
 //ctrl_mem[4] = memread (ld)
 //ctrl_mem[3] = memwrite (sd)
 
-assign address = alu_result_wire;        // Data memory input
-assign w_data = write_data1_wire;        // Data memory input
-assign mem_ctrl_input = ctrl_mem_wire;   // Data memoty input
+assign address = alu_result;        // Data memory input
+assign w_data = write_data1;        // Data memory input
+assign mem_ctrl_input = ctrl_mem[4:3];   // Data memoty input
 
 assign ctrl_wb = ctrl_wb_reg;
 assign rd_wb = rd_wb_reg;
