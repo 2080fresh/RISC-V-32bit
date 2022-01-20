@@ -20,13 +20,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	MEM_tb
 
-} {} {}} C:/Users/2080f/Documents/URP/EX.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module EX
-
-Top level modules:
-	EX
-
 } {} {}} C:/Users/2080f/Documents/URP/ID.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/ID.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module ID
@@ -34,12 +27,26 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	ID
 
+} {} {}} C:/Users/2080f/Documents/URP/EX.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/EX.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module EX
+
+Top level modules:
+	EX
+
 } {} {}} C:/Users/2080f/Documents/URP/WB_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/WB_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module tb_wb
 
 Top level modules:
 	tb_wb
+
+} {} {}} C:/Users/2080f/Documents/URP/IF.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/IF.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module IF
+
+Top level modules:
+	IF
 
 } {} {}} C:/Users/2080f/Documents/URP/Top_tb.v {1 {vlog -work work -stats=none C:/Users/2080f/Documents/URP/Top_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020

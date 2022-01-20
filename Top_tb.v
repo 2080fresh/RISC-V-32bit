@@ -59,7 +59,7 @@ initial begin
     FID = $fopen("result.txt");
     for(i=0; i<MEM_SIZE; i = i + 1) begin
         if(memory[i] !== predict[i]) begin
-        $fdisplay(FID, "Address %g error\nresult : %h\npredict value : %h",
+        $fdisplay(FID, "Address %g error result : %h predict value : %h",
                   i, memory[i], predict[i]);
         end
     end
@@ -89,25 +89,26 @@ always @(op_write_top or mem_ctrl_input or ins_addr
          or address or w_data)
 begin : Memory_module
 // IF module
-    ins_data <= #MEM_DELAY {memory[ins_addr+3],
+    #MEM_DELAY
+    ins_data = {memory[ins_addr+3],
                             memory[ins_addr+2],
                             memory[ins_addr+1],
                             memory[ins_addr]};
 
 // ID module
-    load_pc_reg_value1 <= #MEM_DELAY {memory[load_pc_reg_addr1+3],
-                                      memory[load_pc_reg_addr1+2],
-                                      memory[load_pc_reg_addr1+1],
-                                      memory[load_pc_reg_addr1]};
-    load_pc_reg_value2 <= #MEM_DELAY {memory[load_pc_reg_addr2+3],
-                                      memory[load_pc_reg_addr2+2],
-                                      memory[load_pc_reg_addr2+1],
-                                      memory[load_pc_reg_addr2]};
+    load_pc_reg_value1 =  {memory[4 * load_pc_reg_addr1+3],
+                                      memory[4 * load_pc_reg_addr1+2],
+                                      memory[4 * load_pc_reg_addr1+1],
+                                      memory[4 * load_pc_reg_addr1]};
+    load_pc_reg_value2 =  {memory[4 * load_pc_reg_addr2+3],
+                                      memory[4 * load_pc_reg_addr2+2],
+                                      memory[4 * load_pc_reg_addr2+1],
+                                      memory[4 * load_pc_reg_addr2]};
     if (op_write_top === 1'b1) begin
-        memory[write_pc_reg_addr + 3] <= write_pc_reg_value[31:24];
-        memory[write_pc_reg_addr + 2] <= write_pc_reg_value[23:16];
-        memory[write_pc_reg_addr + 1] <= write_pc_reg_value[15:8];
-        memory[write_pc_reg_addr] <= write_pc_reg_value[7:0];
+        memory[4 * write_pc_reg_addr + 3] = write_pc_reg_value[31:24];
+        memory[4 * write_pc_reg_addr + 2] = write_pc_reg_value[23:16];
+        memory[4 * write_pc_reg_addr + 1] = write_pc_reg_value[15:8];
+        memory[4 * write_pc_reg_addr] = write_pc_reg_value[7:0];
     end
 
 // MEM module
@@ -115,14 +116,13 @@ begin : Memory_module
     if ((mem_ctrl_input[1] === 1'b1) && (mem_ctrl_input[0] === 1'b1)) begin
         $stop;
     end else if (mem_ctrl_input[1] === 1'b1) begin
-        read_data <= #MEM_DELAY {memory[address+3],
+        read_data = {memory[address+3],
                                  memory[address+2],
                                  memory[address+1],
                                  memory[address]};
     end else if(mem_ctrl_input[0] === 1'b1) begin
-        #MEM_DELAY
         for (cnt = 0 ; cnt < 4 ; cnt = cnt + 1)
-            memory[address + 3 - cnt] <= w_data[8 * cnt +: 8];
+            memory[address + 3 - cnt] = w_data[8 * cnt +: 8];
     end
 end
 

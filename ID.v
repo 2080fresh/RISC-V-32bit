@@ -77,10 +77,9 @@ begin : SEPERTATE_INST
             rd_reg = pipe_data[11:7];
             funct7_reg = 7'd0;
             rs2_reg = 5'd0;
-            rd_reg = 5'd0;
         end
         JALR_OP : begin
-            immediate_reg = $signed(pipe_data[31:20]);
+            immediate_reg = $signed(pipe_data[31:22]);
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
@@ -180,7 +179,7 @@ end
 always @(control_bit or load_pc_reg_value1 or pipe_pc or extended_reg)
 begin : PC_J_MUX
     if (control_bit[9] == 0) begin
-        pc_j_reg = pipe_pc + {extended_reg << 1}; //Address adder( Shift left1, Add )
+        pc_j_reg = pipe_pc + {immediate_reg << 1}; //Address adder( Shift left1, Add )
     end else begin
         pc_j_reg = load_pc_reg_value1;
     end
@@ -221,10 +220,7 @@ begin : PIPELINE_REGISTER
         pc4_ex_reg <= pipe_pc4;
         r_data2_reg <= load_pc_reg_value2;
         extended_reg <= immediate_reg;
-        if (control_bit[5] || control_bit[4])
-            r_data1_reg <= rs1_reg;
-        else
-            r_data1_reg <= load_pc_reg_value1;
+        r_data1_reg <= load_pc_reg_value1;
         if (control_bit[8:6] == 3'b000)
             rd_ex_reg <= 32'd4;
         else

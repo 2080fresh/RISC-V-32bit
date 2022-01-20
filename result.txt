@@ -1,15 +1,22 @@
+Address 4 error result : a0 predict value : xx
+Address 5 error result : 00 predict value : xx
+Address 6 error result : 00 predict value : xx
+Address 7 error result : 00 predict value : xx
+Address 306 error result : 01 predict value : 80
+Address 310 error result : 01 predict value : 86
+Address 311 error result : 00 predict value : a0
 ------------------------------------
 Address      data
           0 00 00 00 00
-          4 xx xx xx xx
+          4 a0 00 00 00
           8 xx xx xx xx
-         12 xx xx xx xx
+         12 2c 01 00 00
          16 xx xx xx xx
-         20 01 00 00 00
+         20 c8 00 00 00
          24 02 00 00 00
-         28 xx xx xx xx
-         32 xx xx xx xx
-         36 xx xx xx xx
+         28 02 00 00 00
+         32 01 00 00 00
+         36 ff ff ff ff
          40 xx xx xx xx
          44 xx xx xx xx
          48 xx xx xx xx
@@ -18,9 +25,9 @@ Address      data
          60 xx xx xx xx
          64 xx xx xx xx
          68 xx xx xx xx
-         72 xx xx xx xx
-         76 xx xx xx xx
-         80 xx xx xx xx
+         72 64 00 00 00
+         76 a0 86 01 00
+         80 00 80 01 00
          84 xx xx xx xx
          88 xx xx xx xx
          92 xx xx xx xx
@@ -28,41 +35,41 @@ Address      data
         100 xx xx xx xx
         104 xx xx xx xx
         108 xx xx xx xx
-        112 xx xx xx xx
-        116 xx xx xx xx
-        120 xx xx xx xx
-        124 xx xx xx xx
-        128 13 0a 10 00
-        132 xx xx xx xx
-        136 xx xx xx xx
-        140 xx xx xx xx
-        144 33 0c 4a 01
-        148 xx xx xx xx
-        152 xx xx xx xx
-        156 xx xx xx xx
-        160 xx xx xx xx
+        112 c8 00 00 00
+        116 00 80 01 00
+        120 a0 86 01 00
+        124 00 00 00 00
+        128 93 01 c0 12
+        132 93 02 80 0c
+        136 13 04 10 00
+        140 93 04 f0 ff
+        144 03 a9 01 00
+        148 83 a9 41 00
+        152 03 aa 81 00
+        156 ef 00 80 01
+        160 63 0c 5e 06
         164 xx xx xx xx
         168 xx xx xx xx
         172 xx xx xx xx
         176 xx xx xx xx
-        180 xx xx xx xx
-        184 xx xx xx xx
-        188 xx xx xx xx
-        192 xx xx xx xx
-        196 xx xx xx xx
-        200 xx xx xx xx
-        204 xx xx xx xx
-        208 xx xx xx xx
-        212 xx xx xx xx
+        180 33 03 84 00
+        184 b3 03 94 40
+        188 33 1e 89 00
+        192 b3 fe 49 01
+        196 33 ef 49 01
+        200 b3 2f 94 00
+        204 63 09 73 00
+        208 33 04 00 00
+        212 b3 04 00 00
         216 xx xx xx xx
         220 xx xx xx xx
         224 xx xx xx xx
         228 xx xx xx xx
         232 xx xx xx xx
         236 xx xx xx xx
-        240 xx xx xx xx
-        244 xx xx xx xx
-        248 xx xx xx xx
+        240 23 a2 d1 01
+        244 23 a4 e1 01
+        248 67 00 04 01
         252 xx xx xx xx
         256 xx xx xx xx
         260 xx xx xx xx
@@ -75,9 +82,9 @@ Address      data
         288 xx xx xx xx
         292 xx xx xx xx
         296 xx xx xx xx
-        300 xx xx xx xx
-        304 xx xx xx xx
-        308 xx xx xx xx
+        300 64 00 00 00
+        304 a0 86 01 00
+        308 00 80 01 00
         312 xx xx xx xx
         316 xx xx xx xx
         320 xx xx xx xx

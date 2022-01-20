@@ -52,7 +52,7 @@ set project_name     ID_project
 set testbench_entity ID_tb
 set tbench_file_name ID_tb.v
 set design_files     { ID.v }; list
-# set parameterlist    {{NUM_TEST_BITS 14} {NBITS 4} {CLOCK_PERIOD 20}}
+set parameterlist    {{TEST_INS 32'b010000001000001100000001000110011}}
 #
 
 # Revision   : 2.9

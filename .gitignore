@@ -17,6 +17,8 @@
 *.qws
 *.qsf
 *.qpf
+*.txt
+*.xlsx
 
 # ignore simulation output of ModelSim
 wlf*
