@@ -1,4 +1,3 @@
-
 module IF(
     input clk,
     input reset_n,
@@ -10,14 +9,12 @@ module IF(
     output [31:0] ins_addr,
     output [31:0] pipe_data
 );
-
 reg [31:0] pc_out_reg;
 reg [31:0] pc_in_reg;
 reg [31:0] pipe_pc4_reg;
 reg [31:0] pipe_pc_reg;
 reg [31:0] pipe_data_reg;
 reg [31:0] ins_data_reg;
-
 assign ins_addr = pc_out_reg;
 assign pipe_pc = pipe_pc_reg;
 assign pipe_data = pipe_data_reg;

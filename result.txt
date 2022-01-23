@@ -2,7 +2,17 @@ Address 4 error result : a0 predict value : xx
 Address 5 error result : 00 predict value : xx
 Address 6 error result : 00 predict value : xx
 Address 7 error result : 00 predict value : xx
+Address 205 error result : 82 predict value : 09
+Address 206 error result : 63 predict value : 73
+Address 207 error result : 02 predict value : 00
+Address 249 error result : 80 predict value : 00
+Address 250 error result : 00 predict value : 04
+Address 251 error result : 00 predict value : 01
+Address 304 error result : 00 predict value : a0
+Address 305 error result : 80 predict value : 86
 Address 306 error result : 01 predict value : 80
+Address 308 error result : a0 predict value : 00
+Address 309 error result : 86 predict value : 80
 Address 310 error result : 01 predict value : 86
 Address 311 error result : 00 predict value : a0
 ------------------------------------
@@ -58,7 +68,7 @@ Address      data
         192 b3 fe 49 01
         196 33 ef 49 01
         200 b3 2f 94 00
-        204 63 09 73 00
+        204 63 82 63 02
         208 33 04 00 00
         212 b3 04 00 00
         216 xx xx xx xx
@@ -69,7 +79,7 @@ Address      data
         236 xx xx xx xx
         240 23 a2 d1 01
         244 23 a4 e1 01
-        248 67 00 04 01
+        248 67 80 00 00
         252 xx xx xx xx
         256 xx xx xx xx
         260 xx xx xx xx
@@ -83,8 +93,8 @@ Address      data
         292 xx xx xx xx
         296 xx xx xx xx
         300 64 00 00 00
-        304 a0 86 01 00
-        308 00 80 01 00
+        304 00 80 01 00
+        308 a0 86 01 00
         312 xx xx xx xx
         316 xx xx xx xx
         320 xx xx xx xx

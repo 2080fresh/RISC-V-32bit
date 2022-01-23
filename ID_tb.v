@@ -15,20 +15,17 @@ parameter CTRL_SLL  = 12'b000_100_00_1000;
 parameter CTRL_SLT  = 12'b000_100_00_1010;
 parameter CTRL_AND  = 12'b000_100_00_0100;
 parameter CTRL_OR   = 12'b000_100_00_0110;
-
 // INPUT
 reg clk = 1'b0;
 reg reset_n = 1'b0;
-reg op_write; //register
+reg op_write;                    //register
 reg [31:0] pipe_pc4;
 reg [31:0] pipe_pc;
-reg [31:0] pipe_data; // instruction
-
+reg [31:0] pipe_data;            // instruction
 reg [31:0] write_data;
 reg [31:0] write_addr;
 reg [31:0] load_pc_reg_value1;
 reg [31:0] load_pc_reg_value2;   // load register value from tb
-
 // OUTPUT
 wire control_j;
 wire [31:0] pc_j;
@@ -39,12 +36,10 @@ wire signed [31:0] r_data2;
 wire signed [31:0] extended;
 wire [31:0] rd_ex;
 wire op_write_top;
-
 wire [31:0] load_pc_reg_addr1;   // load register address1 from tb
 wire [31:0] load_pc_reg_addr2;   // load register address2 from tb
-wire [31:0] write_pc_reg_value; // register value to write on tb
-wire [31:0] write_pc_reg_addr;  // register addr to write on tb
-
+wire [31:0] write_pc_reg_value;  // register value to write on tb
+wire [31:0] write_pc_reg_addr;   // register addr to write on tb
 // DATA REGISTER
 reg [7:0] data_reg [0:REG_SIZE - 1];
 

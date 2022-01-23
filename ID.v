@@ -1,18 +1,18 @@
 module ID(
     input clk,
     input reset_n,
-    input op_write, //register
+    input op_write,                    //register
     input [31:0] pipe_pc,
     input [31:0] pipe_pc4,
-    input [31:0] pipe_data, // instruction
+    input [31:0] pipe_data,            // instruction
     input [31:0] write_data,
     input [31:0] write_addr,
     input [31:0] load_pc_reg_value1,
     input [31:0] load_pc_reg_value2,   // load register value from tb
     output [31:0] load_pc_reg_addr1,   // load register address1 from tb
     output [31:0] load_pc_reg_addr2,   // load register address2 from tb
-    output [31:0] write_pc_reg_value, // register value to write on tb
-    output [31:0] write_pc_reg_addr,  // register addr to write on tb
+    output [31:0] write_pc_reg_value,  // register value to write on tb
+    output [31:0] write_pc_reg_addr,   // register addr to write on tb
     output control_j,
     output [31:0] pc_j,
     output [31:0] r_data1,
@@ -35,8 +35,6 @@ reg [6:0] funct7_reg;
 reg signed [19:0] immediate_reg;
 reg [31:0] load_pc_reg_addr1_reg;
 reg [31:0] load_pc_reg_addr2_reg;
-//reg [31:0] write_pc_reg_value_reg;
-//reg [31:0] write_pc_reg_addr_reg;
 reg [31:0] pc_j_reg;
 reg [31:0] pc4_ex_reg;
 reg [8:0] ctrl_ex_reg;
@@ -51,7 +49,7 @@ localparam [6:0] R_TYPE_OP  = 7'b0110011, // R_type
                  SB_TYPE_OP = 7'b1100011, // SB-type BEQ,BNE,BLT,BGE
                  UJ_TYPE_OP = 7'b1101111; // UJ-type JAL
 
-always @(pipe_data) // Seperate Instruction
+always @(pipe_data)
 begin : SEPERTATE_INST
     case (pipe_data[6:0])
         R_TYPE_OP : begin
@@ -95,7 +93,8 @@ begin : SEPERTATE_INST
             rd_reg = 5'd0;
         end
         SB_TYPE_OP : begin
-            immediate_reg = $signed({pipe_data[31], pipe_data[7], pipe_data[30:25], pipe_data[11:8]});
+            immediate_reg = $signed({pipe_data[31], pipe_data[7],
+                                     pipe_data[30:25], pipe_data[11:8]});
             rs2_reg = pipe_data[24:20];
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
@@ -104,7 +103,7 @@ begin : SEPERTATE_INST
         end
         UJ_TYPE_OP : begin
             immediate_reg = $signed({pipe_data[31], pipe_data[19:12], pipe_data[20],
-                                    pipe_data[30:21]});
+                                     pipe_data[30:21]});
             rd_reg = pipe_data[11:7];
             funct7_reg = 7'd0;
             rs2_reg = 5'd0;
@@ -153,14 +152,14 @@ begin : CONTROL_GENERTATOR
             control_bit = 12'b000_101_10_0001;
         JALR_OP :
             control_bit = 12'b001_110_00_0000;
-        S_TYPE_OP : // SD
+        S_TYPE_OP :                        // SD
             control_bit = 12'b000_000_01_0001;
-        SB_TYPE_OP : // BEQ
+        SB_TYPE_OP :                       // BEQ
             control_bit = 12'b100_000_00_0000;
-        UJ_TYPE_OP : // JAL
+        UJ_TYPE_OP :                       // JAL
             control_bit = 12'b010_110_00_0000;
-        default : begin // R-type
-            if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0) // add
+        default : begin                    // R-type
+            if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0)      // add
                 control_bit = 12'b000_100_00_0000;
             else if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b1) //sub
                 control_bit = 12'b000_100_00_0010;
@@ -170,7 +169,7 @@ begin : CONTROL_GENERTATOR
                 control_bit = 12'b000_100_00_1010;
             else if (funct3_reg == 3'b111) // AND
                 control_bit = 12'b000_100_00_0100;
-            else // OR
+            else                           // OR
                 control_bit = 12'b000_100_00_0110;
         end
     endcase
@@ -179,7 +178,8 @@ end
 always @(control_bit or load_pc_reg_value1 or pipe_pc or extended_reg)
 begin : PC_J_MUX
     if (control_bit[9] == 0) begin
-        pc_j_reg = pipe_pc + {immediate_reg << 1}; //Address adder( Shift left1, Add )
+        //Address adder( Shift left1, Add )
+        pc_j_reg = pipe_pc + {immediate_reg << 1};
     end else begin
         pc_j_reg = load_pc_reg_value1;
     end
@@ -193,15 +193,6 @@ begin : DATA_REGISTER
     else
         load_pc_reg_addr1_reg = rs1_reg;
     load_pc_reg_addr2_reg = rs2_reg;
-/*
-    if (op_write == 1'b1) begin
-        write_pc_reg_addr_reg = write_addr;
-        write_pc_reg_value_reg = write_data;
-    end else begin
-        write_pc_reg_addr_reg = 32'd0;
-        write_pc_reg_value_reg = 32'd0;
-    end
-*/
 end
 
 always @(negedge reset_n or posedge clk)
@@ -210,8 +201,6 @@ begin : PIPELINE_REGISTER
         extended_reg <= 32'd0;
         r_data1_reg <= 32'd0;
         r_data2_reg <= 32'd0;
-//        write_pc_reg_value_reg <= 32'd0;
-//        write_pc_reg_addr_reg <= 32'd0;
         pc4_ex_reg <= 32'd0;
         ctrl_ex_reg <= 9'd0;
         rd_ex_reg <= 32'd0;
@@ -227,7 +216,7 @@ begin : PIPELINE_REGISTER
             rd_ex_reg <= rd_reg;
     end
 end
-
+// assignments for output pins
 assign control_j = (((load_pc_reg_value1 == load_pc_reg_value2) &&
                     control_bit[11]) || control_bit[10] || control_bit[9]);
 assign pc_j = pc_j_reg;
@@ -242,5 +231,4 @@ assign write_pc_reg_addr = write_addr;
 assign extended = extended_reg;
 assign rd_ex = rd_ex_reg;
 assign op_write_top = op_write;
-
 endmodule
