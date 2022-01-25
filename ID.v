@@ -33,8 +33,6 @@ reg [31:0] rd_reg;
 reg [2:0] funct3_reg;
 reg [6:0] funct7_reg;
 reg signed [19:0] immediate_reg;
-reg [31:0] load_pc_reg_addr1_reg;
-reg [31:0] load_pc_reg_addr2_reg;
 reg [31:0] pc_j_reg;
 reg [31:0] pc4_ex_reg;
 reg [8:0] ctrl_ex_reg;
@@ -77,7 +75,7 @@ begin : SEPERTATE_INST
             rs2_reg = 5'd0;
         end
         JALR_OP : begin
-            immediate_reg = $signed(pipe_data[31:22]);
+            immediate_reg = $signed(pipe_data[31:20]);
             rs1_reg = pipe_data[19:15];
             funct3_reg = pipe_data[14:12];
             rd_reg = pipe_data[11:7];
@@ -181,18 +179,8 @@ begin : PC_J_MUX
         //Address adder( Shift left1, Add )
         pc_j_reg = pipe_pc + {immediate_reg << 1};
     end else begin
-        pc_j_reg = load_pc_reg_value1;
+        pc_j_reg = load_pc_reg_value1 + immediate_reg;
     end
-end
-
-always @(rs1_reg or rs2_reg or immediate_reg or write_addr or write_data or 
-         load_pc_reg_value1 or load_pc_reg_value2 or control_bit[9])
-begin : DATA_REGISTER
-    if (control_bit[9] == 1'b1)
-        load_pc_reg_addr1_reg = rs1_reg + immediate_reg;
-    else
-        load_pc_reg_addr1_reg = rs1_reg;
-    load_pc_reg_addr2_reg = rs2_reg;
 end
 
 always @(negedge reset_n or posedge clk)
@@ -224,8 +212,8 @@ assign ctrl_ex = ctrl_ex_reg;
 assign pc4_ex = pc4_ex_reg;
 assign r_data1 = r_data1_reg;
 assign r_data2 = r_data2_reg;
-assign load_pc_reg_addr1 = load_pc_reg_addr1_reg;
-assign load_pc_reg_addr2 = load_pc_reg_addr2_reg;
+assign load_pc_reg_addr1 = rs1_reg;
+assign load_pc_reg_addr2 = rs2_reg;
 assign write_pc_reg_value = write_data;
 assign write_pc_reg_addr = write_addr;
 assign extended = extended_reg;
