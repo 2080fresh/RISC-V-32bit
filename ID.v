@@ -33,8 +33,6 @@ reg [31:0] rd_reg;
 reg [2:0] funct3_reg;
 reg [6:0] funct7_reg;
 reg signed [19:0] immediate_reg;
-reg [31:0] load_pc_reg_addr1_reg;
-reg [31:0] load_pc_reg_addr2_reg;
 reg [31:0] pc_j_reg;
 reg [31:0] pc4_ex_reg;
 reg [8:0] ctrl_ex_reg;
