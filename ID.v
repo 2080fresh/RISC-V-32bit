@@ -175,7 +175,7 @@ begin : CONTROL_GENERTATOR
     endcase
 end
 
-always @(control_bit or load_pc_reg_value1 or pipe_pc or extended_reg)
+always @(control_bit or load_pc_reg_value1 or pipe_pc or extended_reg or immediate_reg)
 begin : PC_J_MUX
     if (control_bit[9] == 0) begin
         //Address adder( Shift left1, Add )
