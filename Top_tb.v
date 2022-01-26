@@ -1,5 +1,39 @@
+/*-----------------------------------------------------------------------------
+ *
+ *  Copyright (c) 2021 by Won Hyeok Kim, Jae Uk Park, Chang Yeon Woo,
+ *  Hyeon Woo Lee All rights reserved.
+ *
+ *  File name  : Top_tb.v
+ *  Written by : Won Hyeok Kim
+ *               Jae Uk Park
+ *               Chang Yeon Woo,
+ *               Hyeon Woo Lee
+ *               Undergraduate
+ *               School of Electrical Engineering
+ *               Sungkyunkwan University
+ *  Written on : January 20, 2022
+ *  Version    : 1.0
+ *  Design     : Testbench of RISC-V top module by 'Top.v'.
+ *
+ *---------------------------------------------------------------------------*/
 `timescale 1ns / 10ps
-
+/*-----------------------------------------------------------------------------
+ *
+ *  MODULE : Top_tb
+ *
+ *  Block description:
+ *      - FILE_ACCESS
+ *      Access file "memory.txt"and "datainfo.txt" to module. Timing of read &
+ *      write depends on test timing.
+ *
+ *      - MEMORY_MODULE
+ *      Always block which access memory file and wrtie or read data from every
+ *      clock.
+ *
+ *      - MEMORY_PRINT
+ *      Print memory array when register data is changed.
+ *
+ *---------------------------------------------------------------------------*/
 module Top_tb;
 parameter MODULE_DELAY = 0.1;
 parameter MEM_DELAY = 1;
@@ -38,7 +72,7 @@ Top Top_module(.clk(clk), .reset_n(reset_n), .ins_data(ins_data),
                .write_pc_reg_value(write_pc_reg_value),
                .write_pc_reg_addr(write_pc_reg_addr),
                .address(address), .w_data(w_data));
-
+// clock generator
 always #(CLK_PERIOD / 2) clk = ~ clk;
 
 initial
@@ -59,7 +93,7 @@ always @(op_write_top or mem_ctrl_input or ins_addr
          or load_pc_reg_addr1 or load_pc_reg_addr2
          or write_pc_reg_value or write_pc_reg_addr
          or address or w_data)
-begin : Memory_module
+begin : MEMORY_MODULE
     $timeformat(-9, 2, "ns", 8);
     // IF module
     #MEM_DELAY

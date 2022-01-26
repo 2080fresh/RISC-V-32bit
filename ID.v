@@ -159,7 +159,7 @@ begin : CONTROL_GENERTATOR
         default : begin                    // R-type
             if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b0)      // add
                 control_bit = 12'b000_100_00_0000;
-            else if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b1) //sub
+            else if (funct3_reg == 3'b000 && funct7_reg[5] == 1'b1) // sub
                 control_bit = 12'b000_100_00_0010;
             else if (funct3_reg == 3'b001) // SLL
                 control_bit = 12'b000_100_00_1000;
@@ -198,6 +198,7 @@ begin : PIPELINE_REGISTER
         r_data2_reg <= load_pc_reg_value2;
         extended_reg <= immediate_reg;
         r_data1_reg <= load_pc_reg_value1;
+        // make 'rd' goes to 'ra' when jal
         if (control_bit[8:6] == 3'b000)
             rd_ex_reg <= 32'd4;
         else

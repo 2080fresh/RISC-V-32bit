@@ -1,5 +1,4 @@
 `timescale 1ns / 1ps
-
 module tb_ex;
 localparam MODULE_DELAY = 0.1;
 //clock
@@ -38,7 +37,7 @@ begin : EX_TESTBENCH
     #15 reset_n = 1'b1; FID = $fopen("result.txt");
     //Testcase #1
     #MODULE_DELAY;
-    t = t+1; ctrl_ex = 9'b111_110_000;
+    t = t + 1; ctrl_ex = 9'b111_110_000;
     rd_ex = 32'hFFFF_FFFF; pc4_ex = 32'hFFFF_FFFF;
     r_data1 = 32'sh0; r_data2 = 32'shFFFF_FFFF; extended = 32'sd0;
     com_factor = 32'shFFFF_FFFF;
@@ -53,10 +52,10 @@ begin : EX_TESTBENCH
         $fdisplay(FID, "testcase #%d writedata error", t);
     //Testcase #2
     #(MODULE_DELAY / 2);
-     t = t+1; ctrl_ex = 9'b000_000_000;
-     rd_ex = 32'h0; pc4_ex = 32'h0;
-     r_data1 = 32'sh0; r_data2 = 32'sh0; extended = 32'sh0;
-     com_factor = 32'sh0;
+    t = t+1; ctrl_ex = 9'b000_000_000;
+    rd_ex = 32'h0; pc4_ex = 32'h0;
+    r_data1 = 32'sh0; r_data2 = 32'sh0; extended = 32'sh0;
+    com_factor = 32'sh0;
     #(10 - MODULE_DELAY / 2);
     if(rd_mem !== rd_ex)
         $fdisplay(FID, "testcase #%d rd error", t);

@@ -22,7 +22,7 @@ reg signed [31:0] result;
 reg signed [31:0] mux_out;
 
 always @(posedge clk or negedge reset_n)
-begin
+begin : PIPELINE_REGISTER
     if (reset_n == 1'd0) begin
         ctrl_mem_reg <= 5'd0;
         rd_mem_reg <= 5'd0;
@@ -49,18 +49,18 @@ end
 always @ (ctrl_ex[3:1] or r_data1 or mux_out)
 begin : ALU
     case (ctrl_ex[3:1])
-        3'b000 :                               // ADD
+        3'b000 :                            // ADD
             result = r_data1 + mux_out;
-        3'b001 :                                // SUB
+        3'b001 :                            // SUB
             result = r_data1 - mux_out;
-        3'b010 :                                // AND
+        3'b010 :                            // AND
             result = r_data1 & mux_out;
-        3'b011 :                                // OR
+        3'b011 :                            // OR
             result = r_data1 | mux_out;
-        3'b100 :                                // Shift left
+        3'b100 :                            // Shift left
             result = r_data1 << $unsigned(mux_out);
-        default :                               // SLT (ctrl_ex[3:1] == 3'b101)
-            result = ($signed(r_data1) < $signed(mux_out))? 32'sd1 : 32'sd0 ;
+        default :                           // SLT (ctrl_ex[3:1] == 3'b101)
+            result = ($signed(r_data1) < $signed(mux_out))? 32'sd1 : 32'sd0;
     endcase
 end
 // assignments for output pins

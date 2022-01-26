@@ -24,7 +24,7 @@ reg signed [31:0] mem_data_reg;
 reg signed [31:0] alu_data_reg;
 
 always @(posedge clk or negedge reset_n)
-begin : REGISTER
+begin : PIPELINE_REGISTER
     if (reset_n == 1'b0) begin
         ctrl_wb_reg <= 3'd0;
         rd_wb_reg <= 32'd0;
@@ -35,14 +35,14 @@ begin : REGISTER
         ctrl_wb_reg <= ctrl_mem[4:2];
         rd_wb_reg <= rd_mem;
         pc4_wb_reg <= pc4_mem;
-        mem_data_reg <= read_data;      // memory output
+        mem_data_reg <= read_data;
         alu_data_reg <= alu_result;
     end
 end
 
-assign address = alu_result;        // Data memory input
-assign w_data = write_data1;        // Data memory input
-assign mem_ctrl_input = ctrl_mem[1:0];   // Data memoty input
+assign address = alu_result;           // Data memory input
+assign w_data = write_data1;           // Data memory input
+assign mem_ctrl_input = ctrl_mem[1:0]; // Data memoty input
 assign ctrl_wb = ctrl_wb_reg;
 assign rd_wb = rd_wb_reg;
 assign pc4_wb = pc4_wb_reg;

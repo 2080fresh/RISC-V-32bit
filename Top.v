@@ -1,21 +1,67 @@
+/*-----------------------------------------------------------------------------
+ *
+ *  Copyright (c) 2021 by Won Hyeok Kim, Jae Uk Park, Chang Yeon Woo,
+ *  Hyeon Woo Lee All rights reserved.
+ *
+ *  File name  : Top.v
+ *  Written by : Won Hyeok Kim
+ *               Jae Uk Park
+ *               Chang Yeon Woo,
+ *               Hyeon Woo Lee
+ *               Undergraduate
+ *               School of Electrical Engineering
+ *               Sungkyunkwan University
+ *  Written on : January 18, 2022
+ *  Version    : 1.0
+ *  Design     : RISC-V top module by 'IF','ID','EX','MEM','WB' module
+ *               association.
+ *
+ *  Target testbench: "Top_tb.v" is target testbench code for "Top.v".
+ *
+ *---------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------
+ *
+ *  MODULE : Top
+ *
+ *  I/O wire
+ *      - INPUT
+ *      clk : System clock. Default clock period is 10ns.
+ *      reset_n : Reset signal asynchronous with clk.
+ *      ins_data : instruction memory, 32-bits output
+ *      load_pc_reg_value1 : ID_register, 32-bits output
+ *      load_pc_reg_value2 : ID_register, 32-bits output
+ *      read_data : Data memory, 32-bits output
+ *      - OUTPUT
+ *      op_write_top : ID_register control bit
+ *      mem_ctrl_input : Data memory 2-bits input
+ *      ins_addr : instruction memory 32-bits input
+ *      load_pc_reg_addr1 : ID_register 32-bits input
+ *      load_pc_reg_addr2 : ID_register 32-bits input
+ *      write_pc_reg_value : ID_register 32-bits input
+ *      write_pc_reg_addr : ID_register 32-bits input
+ *      address : Data memory 32-bits address input
+ *      w_data : Data memory 32-bits data input
+ *
+ *---------------------------------------------------------------------------*/
 module Top(
     input clk,
     input reset_n,
-    input [31:0] ins_data,              // instruction mem output
-    input [31:0] load_pc_reg_value1,    // ID_register output1
-    input [31:0] load_pc_reg_value2,    // ID_register output2
-    input [31:0] read_data,             // Data mem output (data)
-    output op_write_top,                // ID_register ctrl bit
-    output [1:0] mem_ctrl_input,        // Data mem input (ctrl bit)
-    output [31:0] ins_addr,             // instruction mem input
-    output [31:0] load_pc_reg_addr1,    // ID_register input (read_reg address)
-    output [31:0] load_pc_reg_addr2,    // ID_register input (read_reg address)
-    output [31:0] write_pc_reg_value,   // ID_register input (write_reg data)
-    output [31:0] write_pc_reg_addr,    // ID_register input (write_reg address)
-    output [31:0] address,              // Data mem input (address)
-    output [31:0] w_data                // Data mem input (data)
+    input [31:0] ins_data,
+    input [31:0] load_pc_reg_value1,
+    input [31:0] load_pc_reg_value2,
+    input [31:0] read_data,
+    output op_write_top,
+    output [1:0] mem_ctrl_input,
+    output [31:0] ins_addr,
+    output [31:0] load_pc_reg_addr1,
+    output [31:0] load_pc_reg_addr2,
+    output [31:0] write_pc_reg_value,
+    output [31:0] write_pc_reg_addr,
+    output [31:0] address,
+    output [31:0] w_data
 );
                                         // in       out
+                                        //--------------
 wire control_j;                         // IF       ID
 wire op_write;                          // ID       WB
 wire [2:0] ctrl_wb;                     // WB       MEM

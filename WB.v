@@ -8,7 +8,6 @@ module WB(
     output [31:0] write_data,
     output [31:0] write_addr
 );
-
 reg signed [31:0] mux_out_reg;
 
 assign op_write = ctrl_wb[2];

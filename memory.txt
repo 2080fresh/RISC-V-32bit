@@ -60,7 +60,7 @@ xx	xx	xx	xx
 xx	xx	xx	xx
 23	A2	D1	01
 23	A4	E1	01
-67	80	00	00
+67	00	0A	00
 xx	xx	xx	xx
 xx	xx	xx	xx
 xx	xx	xx	xx
