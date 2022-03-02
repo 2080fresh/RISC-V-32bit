@@ -44,7 +44,7 @@
  *
  *---------------------------------------------------------------------------*/
 module Top(
-    input clk,
+    input clk_t,
     input reset_n,
     input [31:0] ins_data,
     input [31:0] load_pc_reg_value1,
